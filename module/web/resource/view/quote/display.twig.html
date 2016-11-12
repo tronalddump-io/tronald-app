@@ -1,0 +1,30 @@
+{% extends "base.twig.html" %}
+
+{% block head %}
+    <title>{{ quote.value }}</title>
+    <meta content="description" name="{{ quote.value }}" />
+    <link rel="canonical" href="{{ path('web.get_quote', { id: quote.quote_id }) }}" />
+{% endblock %}
+
+{% block content %}
+    <div>
+        <blockquote><p>{{ quote.value }}</p></blockquote>
+        <dl class="meta">
+            <dt>Appeared at:</dt>
+            <dd>{{ quote.appeared_at | date("F jS, Y") }}</dd>
+            {% if quote.tags %}
+                <dt>Tags</dt>
+                <dd>
+                    {% for tag in quote.tags %}
+                        <a href="{{ path('web.get_tag', { tag: tag }) }}">{{ tag }}</a>
+                        {% if loop.last == false %},{% endif %}
+                    {% endfor %}
+                </dd>
+            {% endif %}
+            {% if quote.source.url %}
+                <dt>Source</dt>
+                <dd><a rel="nofollow" target="_blank" href="{{ quote.source.url }}">here</a></dd>
+            {% endif %}
+        </dl>
+    </div>
+{% endblock %}

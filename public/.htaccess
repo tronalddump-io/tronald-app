@@ -1,0 +1,22 @@
+# ----------------------------------------------------------------------
+# Start rewrite engine
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks
+  RewriteEngine On
+  RewriteBase /
+
+  #Rules for Versioned Static Files
+  RewriteRule ^(js|css)/(.+)\.([0-9]+)\.(js|css)$ /$1/$2.$4 [L]
+
+  # we skip all files with .something
+  RewriteCond %{REQUEST_URI} \..+$
+  RewriteCond %{REQUEST_URI} !\.html$
+  RewriteRule .* - [L]
+
+  RewriteRule ^(.*)$ /index.php [QSA,L]
+
+</IfModule>
+
+FallbackResource /index.php

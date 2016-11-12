@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+# -----------------------------------------------------------------------------
+# This script starts the 
+# -----------------------------------------------------------------------------
+
+# Check if php is installed
+command -v php --version >/dev/null 2>&1 || {
+   echo >&2 "Please install php (c.f. https://secure.php.net/downloads.php) before continuing."
+   exit 1
+}
+
+readonly APPLICATION=$1
+
+if [ -z $APPLICATION ]; then
+  echo "Set variable \"APPLICATION\" non-empty. Accepted values are \"api\" and \"www\"."
+  exit 1
+fi
+
+readonly SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+readonly PROJECT_DIR=$(cd "${SCRIPT_DIR}/.." && pwd)
+
+readonly HOST="$APPLICATION.tronalddump.local"
+readonly PORT=8080
+
+echo '\n\033[0;31m# -----------------------------------------------------------------------------'
+echo '# This web server was designed to aid application development. It may also be'
+echo '# useful for testing purposes or for application demonstrations that are run in'
+echo '# controlled environments. It is not intended to be a full-featured web server.'
+echo '# It should not be used on a public network.'
+echo '# -----------------------------------------------------------------------------\033[0m\n'
+
+php -S $HOST:$PORT -t $PROJECT_DIR/public/ $PROJECT_DIR/public/index.php --timeout=0

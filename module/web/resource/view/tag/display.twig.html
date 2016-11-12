@@ -1,0 +1,30 @@
+{% extends "base.twig.html" %}
+
+{% block head %}
+    <title>What Tronald thinks about {{ tag }}</title>
+    <meta content="description" name="What Tronald thinks about {{ tag }}" />
+    <link rel="canonical" href="{{ pagination.current }}" />
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1 class="center"><small>What Tronald thinks about: </small>{{ tag }}</h1>
+        {% if quotes %}
+            {% for quote in quotes %}
+                
+                <blockquote cite="{{ path('web.get_quote', { id: quote.quote_id }) }}">
+                    <p>{{ quote.value }}</p>
+                    <footer>
+                        - <cite><a href="{{ path('web.get_quote', { id: quote.quote_id }) }}">{{ quote.appeared_at | date("F jS, Y") }}</a></cite>
+                    </footer>
+                </blockquote>
+            {% endfor %}
+        {% endif %}
+        {% if pagination.prev %}
+            <a class="btn" href="{{ pagination.prev }}">prev</a>
+        {% endif %}
+        {% if pagination.next %}
+            <a class="btn" href="{{ pagination.next }}">next</a>
+        {% endif %}
+    </section>
+{% endblock %}

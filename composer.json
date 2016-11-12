@@ -1,0 +1,37 @@
+{
+    "name": "tronal",
+    "description": "tronalddump.io is a free JSON API the dumbest things donald trump has ever said.",
+    "homepage": "https://api.chucknorris.io",
+    "keywords": ["tonald", "tronald dump"],
+    "license": "GPL-3.0+",
+    "require": {
+        "php": "~5.6",
+        "bramus/monolog-colored-line-formatter": "^2.0",
+        "doctrine/dbal": "^2.5",
+        "jms/serializer": "^1.4",
+        "monolog/monolog": "~1",
+        "ramsey/uuid": "^3.5",
+        "silex/silex": "~2.0",
+        "symfony/config": "^3.1",
+        "symfony/form": "^3.1",
+        "symfony/translation": "^3.1",
+        "symfony/twig-bridge": "^3.1",
+        "symfony/security-csrf": "^3.1",
+        "symfony/validator": "^3.1",
+        "symfony/yaml": "~3.1",
+        "twig/twig": "~1.27",
+        "vlucas/phpdotenv": "^2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tronald\\App\\Api\\": "module/api/src",
+            "Tronald\\App\\Web\\": "module/web/src",
+            "Tronald\\Lib\\": "module/lib/src"
+        }
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "scripts": {
+        "serve": "bin/start.sh"
+    }
+}

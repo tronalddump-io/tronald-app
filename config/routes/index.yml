@@ -1,0 +1,35 @@
+web.index :
+    path     : /
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Web\Controller\IndexController::getAction
+
+web.get_quote_submit :
+    path     : /quote/submit
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Web\Controller\QuoteSubmitController::getAction
+
+web.post_quote_submit :
+    path     : /quote/submit
+    methods  : POST
+    defaults :
+        _controller : \Tronald\App\Web\Controller\QuoteSubmitController::postAction
+
+web.get_quote :
+    path     : /quote/{id}
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Web\Controller\QuoteDisplayController::getAction
+
+web.search :
+    path     : /search
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Web\Controller\SearchController::getAction
+
+web.get_tag :
+    path     : /tag/{tag}
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Web\Controller\TagDisplayController::getAction

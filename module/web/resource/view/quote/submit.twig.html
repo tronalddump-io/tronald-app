@@ -1,0 +1,15 @@
+{% extends "base.twig.html" %}
+
+{% block content %}
+    <section class="center">
+        <h1>Submit a quote to Tronald's dump</h1>
+        <p>Read our contribution guidelines first!</p>
+    </section>
+    <section class="center">
+        <form action="#" method="post">
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+            {{ form_end(form) }}
+        </form>
+    </section>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.twig.html" %}
+
+{% block content %}
+    <section class="center">
+        <h1>Tronald Dump</h1>
+        <p>Api & web archive for the dumbest things Donald Trump has ever said</p>
+    </section>
+    <hr>
+    <section class="center">
+        <p>Search the dump</p>
+        <form action="{{ path('web.search') }}" method="GET" class="center">
+            <input type="text" name="query">
+            <input type="submit" value="Search" class="btn">
+        </form>
+    </section>
+    {% if tags %}
+        <section class="center">
+        <p>See what Tronald is thinking about:</p>
+            {% for tag in tags %}
+                <a href="{{ path('web.get_tag', { tag: tag.name }) }}">{{ tag.name }}</a>{% if loop.last == false %},{% endif %}
+            {% endfor %}
+        </section>
+    {% endif %}
+{% endblock %}
