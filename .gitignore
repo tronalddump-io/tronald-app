@@ -1,3 +1,11 @@
+# Composer package manager
 composer.phar
 /vendor/
+
+# Dot env files
 .env
+
+# Eclipse dump
+.buildpath
+.project
+.settings/
