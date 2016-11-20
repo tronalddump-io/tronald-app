@@ -8,6 +8,12 @@ web.index :
     defaults :
         _controller : \Tronald\App\Web\Controller\IndexController::getAction
 
+web.privacy :
+    path     : /privacy
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Web\Controller\PrivacyController::getAction
+
 web.get_quote_submit :
     path     : /quote/submit
     methods  : GET
