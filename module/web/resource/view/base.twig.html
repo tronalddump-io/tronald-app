@@ -44,7 +44,7 @@
             text-align: center;
         }
         
-        hr:after {
+        hr.poo:after {
 	        content: "💩";
 	        display: inline-block;
 	        position: relative;
@@ -142,10 +142,6 @@
             padding: 10px 0 0
         }
 
-        footer small.disclaimer {
-            border-top: 1px solid
-        }
-        
         .center {
             text-align: center;
         }
@@ -360,7 +356,8 @@
         </header>
         <div id="content">{% block content %}{% endblock %}</div>
         <footer>
-            <small class="disclaimer">tronalddump.io - api & web archive for the dumbest things Donald Trump has ever said.</small>
+            <hr>
+            <small>tronalddump.io - api & web archive for the dumbest things Donald Trump has ever said.</small>
             <a class="btn small twitter" href="https://twitter.com/MatChilling" target="_blank"><i></i><span>Twitter</span></a>
             <a class="btn small github" href="https://github.com/tronalddump-io" target="_blank"><i></i><span>GitHub</span></a>
             <a class="btn small homepage" href="https://www.matchilling.com" target="_blank"><i></i><span></span></a>
