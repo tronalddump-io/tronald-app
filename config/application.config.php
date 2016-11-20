@@ -2,6 +2,7 @@
 return [
     'modules' => [
         'api' => 'module/api/src/App.php',
+        'cli' => 'module/cli/src/App.php',
         'web' => 'module/web/src/App.php'
     ],
     'server_names' => [

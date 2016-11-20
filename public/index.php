@@ -9,6 +9,7 @@
  * file that was distributed with this source code.
  *
  */
+
 if (! defined('APPLICATION_PATH')) {
     define('APPLICATION_PATH', realpath(__DIR__ . '/../'));
 }
@@ -30,12 +31,14 @@ if (file_exists(sprintf('%s/.env', APPLICATION_PATH))) {
 }
 
 // Load module
-if (! array_key_exists($_SERVER['SERVER_NAME'], $config['server_names'])) {
+if ('cli' === php_sapi_name()) {
+    $module = 'cli';
+} else if (array_key_exists($_SERVER['SERVER_NAME'], $config['server_names'])) {
+    $module = $config['server_names'][$_SERVER['SERVER_NAME']];
+} else {
     throw new \RuntimeException(
         sprintf('Could not determine module from server name "%s".', $_SERVER['SERVER_NAME'])
     );
-} else {
-    $module = $config['server_names'][$_SERVER['SERVER_NAME']];
 }
 
 if (! defined('MODULE_PATH')) {

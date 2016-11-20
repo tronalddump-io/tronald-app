@@ -31,7 +31,10 @@ class QuoteBroker extends AbstractBroker
      */
     public function create(Entity\Quote $quote)
     {
-        if (! ($quote->getAppearedAt() || $quote->getAuthorId() || $quote->getSourceId())) {
+        $authorId = $quote->getAuthor() instanceof Entity\Author ? $quote->getAuthor()->getId() : null;
+        $sourceId = $quote->getSource() instanceof Entity\QuoteSource ? $quote->getSource()->getId() : null;
+
+        if (!$quote->getAppearedAt() || !$authorId || !$sourceId) {
             throw new Exception\InvalidArgumentException('The following values must be non-empty ("appeared_at", "author_id", "source_id").');
         }
 
@@ -46,10 +49,10 @@ class QuoteBroker extends AbstractBroker
                 VALUES (:appeared_at, :author_id, :tags, :quote_id, :quote_source_id, :value);',
                 [
                     'appeared_at'     => $quoteData['appeared_at'],
-                    'author_id'       => $quoteData['author']['author_id'],
+                    'author_id'       => $authorId,
                     'tags'            => is_array($quoteData['tags']) ? json_encode($quoteData['tags']) : null,
                     'quote_id'        => $quoteData['quote_id'],
-                    'quote_source_id' => $quoteData['source']['quote_source_id'],
+                    'quote_source_id' => $sourceId,
                     'value'           => $quoteData['value'],
                 ]
             );

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eee3def3583f582c97a07cf25660fec4",
-    "content-hash": "4f971c83017c5b7407cdfe13b885ea35",
+    "hash": "5211272d65b497f0ce65c7a26b9534b9",
+    "content-hash": "4c8140692082685f393b7e6115dd9674",
     "packages": [
         {
             "name": "bramus/ansi-php",
@@ -611,6 +611,53 @@
                 "parser"
             ],
             "time": "2014-09-09 13:34:57"
+        },
+        {
+            "name": "gitory/pimple-cli",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gitory/pimple-cli.git",
+                "reference": "d498aa8347024ef9a45eae011e1c528680d4829d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gitory/pimple-cli/zipball/d498aa8347024ef9a45eae011e1c528680d4829d",
+                "reference": "d498aa8347024ef9a45eae011e1c528680d4829d",
+                "shasum": ""
+            },
+            "require": {
+                "pimple/pimple": "~3.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0"
+            },
+            "suggest": {
+                "silex/silex": "Provide a light framework to build PHP applications",
+                "symfony/console": "The Console component allows you to create command-line commands"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gitory\\PimpleCli\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Julien Richarte",
+                    "email": "julien.richarte@gmail.com"
+                },
+                {
+                    "name": "Mathieu Rochette",
+                    "email": "mathieu@rochette.cc"
+                }
+            ],
+            "description": "CLI commands for Pimple applications",
+            "time": "2014-09-02 20:09:28"
         },
         {
             "name": "jms/metadata",
@@ -1308,6 +1355,67 @@
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
             "time": "2016-09-25 08:27:07"
+        },
+        {
+            "name": "symfony/console",
+            "version": "v3.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/console.git",
+                "reference": "c99da1119ae61e15de0e4829196b9fba6f73d065"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/c99da1119ae61e15de0e4829196b9fba6f73d065",
+                "reference": "c99da1119ae61e15de0e4829196b9fba6f73d065",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/debug": "~2.8|~3.0",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/event-dispatcher": "~2.8|~3.0",
+                "symfony/process": "~2.8|~3.0"
+            },
+            "suggest": {
+                "psr/log": "For using the console logger",
+                "symfony/event-dispatcher": "",
+                "symfony/process": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Console\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-10-06 01:44:51"
         },
         {
             "name": "symfony/debug",
