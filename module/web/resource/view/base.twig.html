@@ -45,13 +45,13 @@
         }
         
         hr.poo:after {
-	        content: "💩";
-	        display: inline-block;
-	        position: relative;
-	        top: -0.7em;
-	        font-size: 2.5em;
-	        padding: 0 0.25em;
-	        background: white;
+            content: "💩";
+            display: inline-block;
+            position: relative;
+            top: -0.7em;
+            font-size: 2.5em;
+            padding: 0 0.25em;
+            background: white;
         }
 
         header {
@@ -91,13 +91,36 @@
             margin: 0 0 10px;
             padding: 0
         }
-        
+
         .border-btm-solid {
             border-bottom: 1px solid
         }
-        
+
         .border-top-solid {
             border-top: 1px solid
+        }
+
+        code {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            white-space: normal;
+            padding: 0
+        }
+
+        code.beige {
+            color: #be8f4c
+        }
+
+        code.bold {
+            font-weight: bold
+        }
+
+        code.quoted:before {
+            content: '`'
+        }
+
+        code.quoted:after {
+            content: '`'
         }
 
         blockquote {
@@ -168,7 +191,7 @@
             font-size: 14px;
             text-decoration: none
         }
-        
+
         input.small, .btn.small {
             font-size: 11px;
         }
@@ -224,6 +247,10 @@
             color: #3c763d;
             background-color: #dff0d8;
             border-color: #d6e9c6
+        }
+
+        .alert-success a {
+            color: #3c763d;
         }
 
         .alert-error {

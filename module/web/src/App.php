@@ -34,6 +34,7 @@ $app->extend('routes', function (Routing\RouteCollection $routes, Application $a
 
 $app->register(new \Tronald\App\Web\Provider\ConfigProvider());
 $app->register(new \Tronald\App\Web\Provider\BrokerProvider());
+$app->register(new \Tronald\App\Web\Provider\SlackProvider());
 $app->register(new Provider\CsrfServiceProvider());
 $app->register(new Provider\FormServiceProvider());
 $app->register(new Provider\LocaleServiceProvider());

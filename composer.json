@@ -6,6 +6,7 @@
     "license": "GPL-3.0+",
     "require": {
         "php": "~5.6",
+        "bramdevries/oauth2-slack": "^0.1.0",
         "bramus/monolog-colored-line-formatter": "^2.0",
         "doctrine/dbal": "^2.5",
         "gitory/pimple-cli": "^1.0",
