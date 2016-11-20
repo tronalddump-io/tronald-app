@@ -37,6 +37,7 @@ $app->extend('routes', function (Routing\RouteCollection $routes, Application $a
 
 $app->register(new \Tronald\App\Api\Provider\ConfigProvider());
 $app->register(new \Tronald\App\Api\Provider\ServiceProvider());
+$app->register(new \Tronald\App\Api\Provider\SlackProvider());
 
 $streamHandler = new Monolog\Handler\StreamHandler('php://stdout', Monolog\Logger::INFO);
 $streamHandler->setFormatter(

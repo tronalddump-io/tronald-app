@@ -230,7 +230,7 @@ class Database
      *
      * @param  mixed $config
      * @throws \InvalidArgumentException
-     * @return \Chuck\Database
+     * @return Database
      */
     protected function setConnection($config)
     {
@@ -246,7 +246,7 @@ class Database
         } elseif (is_string($config)) {
             $this->connection = \Doctrine\DBAL\DriverManager::getConnection(
                 [
-                    'url' => 'fromEnv' === $config ? \Chuck\Util::getEnvOrDefault('DATABASE_URL') : $config
+                    'url' => 'fromEnv' === $config ? Lib\Util::getEnvOrDefault('DATABASE_URL') : $config
                 ],
                 new \Doctrine\DBAL\Configuration()
             );

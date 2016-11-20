@@ -8,6 +8,14 @@ api.index :
     defaults :
         _controller : \Tronald\App\Api\Controller\IndexController::getAction
 
+api.integration_slack :
+    path     : /integration/slack
+    methods  : POST
+    defaults :
+        _controller : \Tronald\App\Api\Controller\SlackController::postAction
+    options  :
+        _before_middlewares : \Tronald\App\Api\Middleware\Verification::slackOrigin
+
 api.get_quote :
     path     : /quote/{id}
     methods  : GET
