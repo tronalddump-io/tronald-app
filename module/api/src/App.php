@@ -1,7 +1,7 @@
 <?php
 
 /**
- * index.php - created 12 Nov 2016 14:24:07
+ * App.php - created 20 Nov 2016 10:25:44
  *
  * @copyright Copyright (c) Mathias Schilling <m@matchilling>
  *
@@ -11,9 +11,12 @@
  */
 
 use Bramus\Monolog\Formatter;
+use \Exception;
 use Silex\Application;
 use Silex\Provider;
 use Symfony\Component\Config;
+use Symfony\Component\HttpFoundation;
+use Symfony\Component\HttpKernel;
 use Symfony\Component\Routing;
 
 $app = new \Silex\Application();
@@ -23,7 +26,7 @@ $app['debug']           = 'prod' === $app['application_env']  ? false : true;
 $app->extend('routes', function (Routing\RouteCollection $routes, Application $app)
 {
     $loader = new Routing\Loader\YamlFileLoader(
-        new Config\FileLocator(APPLICATION_PATH . '/config/routes/www')
+        new Config\FileLocator(APPLICATION_PATH . '/config/routes/api')
     );
 
     $collection = $loader->load('index.yml');
@@ -32,16 +35,8 @@ $app->extend('routes', function (Routing\RouteCollection $routes, Application $a
     return $routes;
 });
 
-$app->register(new \Tronald\App\Web\Provider\ConfigProvider());
-$app->register(new \Tronald\App\Web\Provider\BrokerProvider());
-$app->register(new Provider\CsrfServiceProvider());
-$app->register(new Provider\FormServiceProvider());
-$app->register(new Provider\LocaleServiceProvider());
-$app->register(new Provider\TranslationServiceProvider(), [
-    'locale_fallbacks'   => ['en'],
-    'translator.domains' => []
-]);
-$app->register(new Provider\ValidatorServiceProvider());
+$app->register(new \Tronald\App\Api\Provider\ConfigProvider());
+$app->register(new \Tronald\App\Api\Provider\ServiceProvider());
 
 $streamHandler = new Monolog\Handler\StreamHandler('php://stdout', Monolog\Logger::INFO);
 $streamHandler->setFormatter(
@@ -50,25 +45,26 @@ $streamHandler->setFormatter(
 $app->register(
     new Provider\MonologServiceProvider(),
     [
-        'monolog.name'    => 'tronald_dump_web',
+        'monolog.name'    => 'tronald_dump_api',
         'monolog.handler' => $streamHandler
     ]
 );
 
-$app->register(new Provider\TwigServiceProvider(), [
-    'twig.path'    => MODULE_PATH . '/resource/view/'
-]);
+$app->error(function (Exception $exception, HttpFoundation\Request $request) use ($app) {
+    $data = [
+        'status'  => 'undefined',
+        'message' => $exception->getMessage()
+    ];
 
-if ($app['twig'] instanceof Twig_Environment) {
-    $app['twig']->addFunction(new \Twig_SimpleFunction('asset', function ($asset) use ($app) {
-        return sprintf('%s/%s', $app['config']['asset']['url'], ltrim($asset, '/'));
-    }));
-}
-
-$app->error(function (\Exception $exception, $httpStatusCode) use ($app) {
-    if ($app['debug']) {
-        return;
+    if ($exception instanceof HttpKernel\Exception\HttpException) {
+        $data['status'] = $exception->getStatusCode();
     }
+
+    if ($app['debug']) {
+        $data['trace'] = $exception->getTrace();
+    }
+
+    return new Tronald\Lib\Http\JsonResponse($data);
 });
 
 return $app;

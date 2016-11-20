@@ -1,0 +1,27 @@
+# -------------------------------------------------------------------------------------------------
+# API ROUTES
+# -------------------------------------------------------------------------------------------------
+
+api.index :
+    path     : /
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Api\Controller\IndexController::getAction
+
+api.get_quote :
+    path     : /quote/{id}
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Api\Controller\QuoteController::getAction
+
+api.search_quote :
+    path     : /search/quote
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Api\Controller\SearchQuoteController::getAction
+
+api.system_time :
+    path     : /system/time
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Api\Controller\SystemTimeController::getAction

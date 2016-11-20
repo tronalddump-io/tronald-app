@@ -11,6 +11,7 @@
         "gitory/pimple-cli": "^1.0",
         "jms/serializer": "^1.4",
         "monolog/monolog": "~1",
+        "nocarrier/hal": "^0.9.12",
         "ramsey/uuid": "^3.5",
         "silex/silex": "~2.0",
         "symfony/config": "^3.1",

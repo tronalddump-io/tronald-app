@@ -23,7 +23,11 @@ if [ $APPLICATION = "cli" ]; then
     sh $SCRIPT_DIR/console
 else
     readonly HOST="$APPLICATION.tronalddump.local"
-    readonly PORT=8080
+    port=8080
+    
+    if [ ! -z "$2" ]; then
+        port=$2
+    fi
     
     echo '\n\033[0;31m# -----------------------------------------------------------------------------'
     echo '# This web server was designed to aid application development. It may also be'
@@ -32,5 +36,5 @@ else
     echo '# It should not be used on a public network.'
     echo '# -----------------------------------------------------------------------------\033[0m\n'
     
-    php -S $HOST:$PORT -t $PROJECT_DIR/public/ $PROJECT_DIR/public/index.php --timeout=0
+    php -S $HOST:$port -t $PROJECT_DIR/public/ $PROJECT_DIR/public/index.php --timeout=0
 fi
