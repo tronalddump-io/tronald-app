@@ -20,12 +20,6 @@ web.connect_slack :
     defaults :
         _controller : \Tronald\App\Web\Controller\Slack\ConnectController::getAction
 
-web.get_quote_submit :
-    path     : /quote/submit
-    methods  : GET
-    defaults :
-        _controller : \Tronald\App\Web\Controller\QuoteSubmitController::getAction
-
 web.post_quote_submit :
     path     : /quote/submit
     methods  : POST
