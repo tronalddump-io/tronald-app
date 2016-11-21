@@ -11,7 +11,7 @@
         <form action="{{ path('web.search') }}" method="GET" class="center">
             <h1 class="center">
                 <small>Search for: </small>
-                <input type="text" name="query" value="{{ query }}">
+                <input type="text" name="query" value="{{ query }}" pattern=".{3,}" required title="3 characters minimum">
                 <input type="submit" value="Search" class="btn">
             </h1>
         </form>

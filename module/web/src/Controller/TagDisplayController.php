@@ -42,6 +42,7 @@ class TagDisplayController
         $page   = (int) $request->query->get('page', 1);
         $offset = $page > 1 ? ($page - 1) * self::ITEMS_PER_PAGE : 0;
         $res    = $app['broker']['quote']->findByTag($tag, self::ITEMS_PER_PAGE, $offset);
+        $pages = (int) ceil($res['total'] / self::ITEMS_PER_PAGE);
 
         /** @var Routing\Generator\UrlGenerator $urlGenerator */
         $urlGenerator = $app['url_generator'];
@@ -49,15 +50,15 @@ class TagDisplayController
         return $app['twig']->render('tag/display.twig.html', [
             'tag'    => $tag,
             'total'  => $res['total'],
-            'quotes' => array_map(function($quote) {
+            'quotes' => is_array($res['result']) ? array_map(function($quote) {
                 return Entity\Factory::toArray($quote);
-            }, $res['result']),
+            }, $res['result']) : [],
             'pagination' => [
                 'current' => $urlGenerator->generate(
                     'web.get_tag',
                     ['tag' => $tag, 'page' => $page > 1 ? $page : null]
                 ),
-                'next'    => $res['total'] > ($page > 1 ? $offset + 1 : self::ITEMS_PER_PAGE)
+                'next'    => $page < $pages
                     ? $urlGenerator->generate('web.get_tag', ['tag' => $tag, 'page' => $page + 1])
                     : null,
                 'prev'    => $page > 1

@@ -42,6 +42,7 @@ class SearchController
         $page   = (int) $request->query->get('page', 1);
         $offset = $page > 1 ? ($page - 1) * self::ITEMS_PER_PAGE : 0;
         $res    = $app['broker']['quote']->search($query, self::ITEMS_PER_PAGE, $offset);
+        $pages = (int) ceil($res['total'] / self::ITEMS_PER_PAGE);
 
         /** @var Routing\Generator\UrlGenerator $urlGenerator */
         $urlGenerator = $app['url_generator'];
@@ -49,19 +50,19 @@ class SearchController
         return $app['twig']->render('search/display.twig.html', [
             'query'    => $query,
             'total'  => $res['total'],
-            'quotes' => array_map(function($quote) {
+            'quotes' => is_array($res['result']) ? array_map(function($quote) {
                 return Entity\Factory::toArray($quote);
-            }, $res['result']),
+            }, $res['result']) : [],
             'pagination' => [
                 'current' => $urlGenerator->generate(
                     'web.search',
                     ['query' => $query, 'page' => $page > 1 ? $page : null]
                 ),
-                'next'    => $res['total'] > ($page > 1 ? $offset + 1 : self::ITEMS_PER_PAGE)
-                    ? $urlGenerator->generate('web.search', ['tag' => $query, 'page' => $page + 1])
+                'next'    => $page < $pages
+                    ? $urlGenerator->generate('web.search', ['query' => $query, 'page' => $page + 1])
                     : null,
                 'prev'    => $page > 1
-                    ? $urlGenerator->generate('web.search', ['tag' => $query, 'page' => $page - 1])
+                    ? $urlGenerator->generate('web.search', ['query' => $query, 'page' => $page - 1])
                     : null
             ]
         ]);

@@ -10,7 +10,7 @@
     <section class="center">
         <p>Search the dump</p>
         <form action="{{ path('web.search') }}" method="GET" class="center">
-            <input type="text" name="query">
+            <input type="text" name="query" pattern=".{3,}" required title="3 characters minimum">
             <input type="submit" value="Search" class="btn">
         </form>
     </section>
