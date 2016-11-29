@@ -52,5 +52,19 @@ class ServiceProvider implements ServiceProviderInterface
         $container['entity_factory'] = function () use ($container) {
             return new Lib\Entity\Factory();
         };
+
+        $container['hal_formatter'] = function () use ($container) {
+            return [
+                'author'       => $author = new Lib\Formatter\Hal\AuthorFormatter(
+                    $container['url_generator']
+                ),
+                'quote_source' => $quoteSource = new Lib\Formatter\Hal\QuoteSourceFormatter(
+                    $container['url_generator']
+                ),
+                'quote'        => new Lib\Formatter\Hal\QuoteFormatter(
+                    $container['url_generator'], $author, $quoteSource
+                )
+            ];
+        };
     }
 }

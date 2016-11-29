@@ -19,6 +19,7 @@ use Symfony\Component\Routing;
 use Tronald\Lib\Broker;
 use Tronald\Lib\Entity;
 use Tronald\Lib\Exception;
+use Tronald\Lib\Formatter;
 use Tronald\Lib\Http;
 
 /**
@@ -35,8 +36,9 @@ class SearchQuoteController
      * @param  $string                        $query
      * @param  $integer                       $limit
      * @param  $integer                       $page
-     * @param  Entity\Factory                 $entityFactory
      * @param  Routing\Generator\UrlGenerator $urlGenerator
+     * @param  Entity\Factory                 $entityFactory
+     * @param  Formatter\Hal\QuoteFormatter   $quoteFormatter
      *
      * @return Hal
      */
@@ -45,8 +47,9 @@ class SearchQuoteController
         $query,
         $limit,
         $page,
+        Routing\Generator\UrlGenerator $urlGenerator,
         Entity\Factory $entityFactory,
-        Routing\Generator\UrlGenerator $urlGenerator
+        Formatter\Hal\QuoteFormatter $quoteFormatter
     ) {
         $resourceData = [
             'count'     => count($response['result']),
@@ -99,12 +102,9 @@ class SearchQuoteController
                 continue;
             }
 
-            $quoteResource = new Hal(
-                $urlGenerator->generate('api.get_quote', [ 'id' => $quote->getId() ]),
+            $resource->addResource('quotes', $quoteFormatter->toHal(
                 $entityFactory->toArray($quote)
-            );
-
-            $resource->addResource('quotes', $quoteResource);
+            ));
         }
 
         return $resource;
@@ -140,8 +140,9 @@ class SearchQuoteController
                 $query,
                 $maxItems,
                 $page,
+                $app['url_generator'],
                 $app['entity_factory'],
-                $app['url_generator']
+                $app['hal_formatter']['quote']
             )
         );
     }

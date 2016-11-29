@@ -11,7 +11,6 @@
  */
 namespace Tronald\App\Api\Controller;
 
-use Nocarrier\Hal;
 use Silex;
 use Symfony\Component\HttpFoundation;
 use Tronald\Lib\Broker;
@@ -38,12 +37,10 @@ class QuoteController
     {
         /** @var Entity\Quote $quote */
         $quote = $app['broker']['quote']->get($id);
+        $data  = $app['entity_factory']->toArray($quote);
 
         return new Http\HalJsonResponse(
-            new Hal(
-                $app['url_generator']->generate('api.get_quote', [ 'id' => $quote->getId() ]),
-                $app['entity_factory']->toArray($quote)
-            )
+            $app['hal_formatter']['quote']->toHal($data)
         );
     }
 }
