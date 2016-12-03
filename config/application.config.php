@@ -11,6 +11,8 @@ return [
         'api.tronalddump.io'        => 'api',
         'www.tronalddump.local'     => 'web',
         'www.tronalddump.io'        => 'web',
-        'tronalddump.herokuapp.com' => 'web'
+        'tronalddump.herokuapp.com' => 'web',
+        'api-stage.tronalddump.io'  => 'api',
+        'www-stage.tronalddump.io'  => 'web',
     ]
 ];
