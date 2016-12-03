@@ -35,9 +35,11 @@ $app->extend('routes', function (Routing\RouteCollection $routes, Application $a
 $app->register(new \Tronald\App\Web\Provider\ConfigProvider());
 $app->register(new \Tronald\App\Web\Provider\BrokerProvider());
 $app->register(new \Tronald\App\Web\Provider\SlackProvider());
+$app->register(new \Tronald\App\Web\Provider\ServiceProvider());
 $app->register(new Provider\CsrfServiceProvider());
 $app->register(new Provider\FormServiceProvider());
 $app->register(new Provider\LocaleServiceProvider());
+$app->register(new Provider\SessionServiceProvider());
 $app->register(new Provider\TranslationServiceProvider(), [
     'locale_fallbacks'   => ['en'],
     'translator.domains' => []
