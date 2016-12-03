@@ -8,6 +8,20 @@ web.index :
     defaults :
         _controller : \Tronald\App\Web\Controller\IndexController::getAction
 
+web.auth_callback :
+    path     : /auth/callback
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Web\Controller\AuthCallbackController::getAction
+
+web.login :
+    path     : /login
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Web\Controller\LoginController::getAction
+    options  :
+            _before_middlewares : \Tronald\App\Web\Middleware\Authentication::unauthenticate
+
 web.privacy :
     path     : /privacy
     methods  : GET
@@ -20,11 +34,21 @@ web.connect_slack :
     defaults :
         _controller : \Tronald\App\Web\Controller\Slack\ConnectController::getAction
 
+web.get_quote_submit :
+    path     : /quote/submit
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Web\Controller\QuoteSubmitController::getAction
+    options  :
+        _before_middlewares : \Tronald\App\Web\Middleware\Authentication::authenticate
+
 web.post_quote_submit :
     path     : /quote/submit
     methods  : POST
     defaults :
         _controller : \Tronald\App\Web\Controller\QuoteSubmitController::postAction
+    options  :
+        _before_middlewares : \Tronald\App\Web\Middleware\Authentication::authenticate
 
 web.get_quote :
     path     : /quote/{id}

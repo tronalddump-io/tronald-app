@@ -44,6 +44,10 @@ class ConfigProvider implements ServiceProviderInterface
             }
 
             $config += [
+                'auth0' => [
+                    'client_secret' => getenv('AUTH0_CLIENT_SECRET') ?: null,
+                    'domain'        => getenv('AUTH0_DOMAIN') ?: null
+                ],
                 'database_url' => getenv('DATABASE_URL') ?: null,
             ];
 
