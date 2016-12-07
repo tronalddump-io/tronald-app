@@ -22,6 +22,12 @@ api.get_quote :
     defaults :
         _controller : \Tronald\App\Api\Controller\QuoteController::getAction
 
+api.get_random_quote :
+    path     : /random/quote
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Api\Controller\RandomQuoteController::getAction
+
 api.search_quote :
     path     : /search/quote
     methods  : GET
