@@ -39,3 +39,9 @@ api.system_time :
     methods  : GET
     defaults :
         _controller : \Tronald\App\Api\Controller\SystemTimeController::getAction
+
+api.tags :
+    path     : /tags
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Api\Controller\TagsController::getAction
