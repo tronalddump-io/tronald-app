@@ -77,7 +77,7 @@ class SearchQuoteController
             []
         ));
 
-        $next = $page > 1 && $page < $pages ? $page + 1 : null;
+        $next = $page < $pages ? $page + 1 : null;
         if ($next) {
             $resource->addHalLink('next', new HalLink(
                 $urlGenerator->generate('api.search_quote', [ 'query' => $query, 'page'  => $next ])
@@ -114,14 +114,24 @@ class SearchQuoteController
      *
      * @param  Silex\Application      $app
      * @param  HttpFoundation\Request $request
-     * @return Http\JsonResponse
+     *
+     * @throws Exception\InvalidArgumentException
+     * @return Http\Json
      */
     public function getAction(Silex\Application $app, HttpFoundation\Request $request)
     {
-        $maxItems = $app['config']['pagination']['max_items'];
-        $query    = $request->query->get('query');
-        $page     = (int) $request->query->get('page', 1);
-        $offset   = $page > 1 ? ($page - 1) * $maxItems : 0;
+        $max  = $app['config']['pagination']['max_items'];
+        $min  = $app['config']['pagination']['min_items'];
+        $size = (int) $request->query->get('size', $max);
+        if ($size > $max || $size < $min) {
+            throw new Exception\InvalidArgumentException(
+                sprintf('Parameter "size" must be between %s - %s.', $min, $max)
+            );
+        }
+
+        $query  = $request->query->get('query');
+        $page   = (int) $request->query->get('page', 1);
+        $offset = $page > 1 ? ($page - 1) * $size : 0;
 
         if (! $query) {
             throw new Exception\InvalidArgumentException('Parameter "query" must be a non-empty value');
@@ -132,13 +142,13 @@ class SearchQuoteController
         }
 
         /** @var array $response */
-        $response = $app['broker']['quote']->search($query, $maxItems, $offset);
+        $response = $app['broker']['quote']->search($query, $size, $offset);
 
         return new Http\HalJsonResponse(
             $this->createHalResource(
                 $response,
                 $query,
-                $maxItems,
+                $size,
                 $page,
                 $app['url_generator'],
                 $app['entity_factory'],
