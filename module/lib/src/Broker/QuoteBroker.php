@@ -123,11 +123,12 @@ class QuoteBroker extends AbstractBroker
 
     /**
      *
+     * @param  string $tag
      * @return Entity\Quote
      */
-    public function random()
+    public function random($tag = null)
     {
-        if (! $res = $this->database->fetchColumn('SELECT get_quote_random();')) {
+        if (! $res = $this->database->fetchColumn('SELECT get_quote_random(:tag);', [ 'tag' => $tag ])) {
             throw new Exception\NotFoundException('Could not find a random quote.');
         }
 

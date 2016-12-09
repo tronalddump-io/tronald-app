@@ -15,6 +15,7 @@ use Silex;
 use Symfony\Component\HttpFoundation;
 use Tronald\Lib\Broker;
 use Tronald\Lib\Entity;
+use Tronald\Lib\Exception;
 use Tronald\Lib\Http;
 
 /**
@@ -25,17 +26,22 @@ use Tronald\Lib\Http;
  */
 class RandomQuoteController
 {
-
     /**
      *
      * @param  Silex\Application      $app
      * @param  HttpFoundation\Request $request
-     * @return string
+     * @throws Exception\InvalidArgumentException
+     * @return Http\HalJsonResponse
      */
     public function getAction(Silex\Application $app, HttpFoundation\Request $request)
     {
+        $tag = $request->get('tag', null);
+        if ('' === $tag) {
+            throw new Exception\InvalidArgumentException('Parameter "tag" must be a non empty string.');
+        }
+
         /** @var Entity\Quote $quote */
-        $quote = $app['broker']['quote']->random();
+        $quote = $app['broker']['quote']->random($tag);
         $data  = $app['entity_factory']->toArray($quote);
 
         return new Http\HalJsonResponse(
