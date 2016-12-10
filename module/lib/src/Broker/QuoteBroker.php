@@ -116,9 +116,28 @@ class QuoteBroker extends AbstractBroker
      */
     public function findTags()
     {
-        $res = $this->database->fetchColumn('SELECT find_tag();');
+        $rows = $this->database->fetchList(
+            'SELECT
+                tags,
+                count(quote_id) AS "count"
+             FROM
+                quote
+             WHERE
+                tags IS NOT NULL
+             GROUP BY
+                tags
+             ORDER BY
+                count(quote_id) DESC');
 
-        return $res ? json_decode($res) : [];
+        $response = [];
+        foreach ($rows as $row) {
+            $tags = json_decode($row['tags'], true);
+            foreach ($tags as $tag) {
+                array_push($response, (object) [ 'name' => $tag, 'count' => $row['count'] ]);
+            }
+        }
+
+        return !empty($response) ? $response : [];
     }
 
     /**
