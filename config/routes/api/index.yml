@@ -45,3 +45,9 @@ api.tags :
     methods  : GET
     defaults :
         _controller : \Tronald\App\Api\Controller\TagsController::getAction
+
+api.teapot :
+    path     : /teapot
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Api\Controller\TeapotController::getAction
