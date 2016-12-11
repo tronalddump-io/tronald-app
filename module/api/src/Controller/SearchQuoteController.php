@@ -80,7 +80,8 @@ class SearchQuoteController
         $next = $page < $pages ? $page + 1 : null;
         if ($next) {
             $resource->addHalLink('next', new HalLink(
-                $urlGenerator->generate('api.search_quote', [ 'query' => $query, 'page'  => $next ])
+                $urlGenerator->generate('api.search_quote', [ 'query' => $query, 'page'  => $next ]),
+                []
             ));
         }
 
