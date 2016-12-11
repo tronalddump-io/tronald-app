@@ -2,6 +2,9 @@
 composer.phar
 /vendor/
 
+# Log
+/log/
+
 # Dot env files
 .env
 

@@ -10,8 +10,7 @@
  *
  */
 
-use Bramus\Monolog\Formatter;
-use \Exception;
+use \Exception as Exception;
 use Silex\Application;
 use Silex\Provider;
 use Symfony\Component\Config;
@@ -38,18 +37,7 @@ $app->extend('routes', function (Routing\RouteCollection $routes, Application $a
 $app->register(new \Tronald\App\Api\Provider\ConfigProvider());
 $app->register(new \Tronald\App\Api\Provider\ServiceProvider());
 $app->register(new \Tronald\App\Api\Provider\SlackProvider());
-
-$streamHandler = new Monolog\Handler\StreamHandler('php://stdout', Monolog\Logger::INFO);
-$streamHandler->setFormatter(
-    new Formatter\ColoredLineFormatter(new Formatter\ColorSchemes\TrafficLight)
-);
-$app->register(
-    new Provider\MonologServiceProvider(),
-    [
-        'monolog.name'    => 'tronald_dump_api',
-        'monolog.handler' => $streamHandler
-    ]
-);
+$app->register(new Provider\MonologServiceProvider(), $app['config']['logger']);
 
 $app->error(function (Exception $exception, HttpFoundation\Request $request) use ($app) {
     $data = [
