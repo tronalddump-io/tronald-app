@@ -20,13 +20,6 @@ namespace Tronald\Lib\Entity;
  */
 abstract class AbstractEntity
 {
-
-    /**
-     *
-     * @var string
-     */
-    protected static $className;
-
     /**
      * @return void
      */

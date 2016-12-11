@@ -134,7 +134,10 @@ class Factory
      */
     public static function toArray($object)
     {
-        return self::getSerializer()->toArray($object);
+        return self::getSerializer()->toArray(
+            $object,
+            \JMS\Serializer\SerializationContext::create()->setSerializeNull(true)
+        );
     }
 
     /**
