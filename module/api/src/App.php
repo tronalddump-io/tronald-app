@@ -18,6 +18,24 @@ use Symfony\Component\HttpFoundation;
 use Symfony\Component\HttpKernel;
 use Symfony\Component\Routing;
 
+if (! defined('APPLICATION_NAME')) {
+    define('APPLICATION_NAME', 'tronald_dump_api');
+}
+
+if (! defined('APPLICATION_PATH')) {
+    define('APPLICATION_PATH', realpath(__DIR__ . '/../../../'));
+}
+
+if (! defined('CONFIG_PATH')) {
+    define('CONFIG_PATH', realpath(APPLICATION_PATH . '/config/'));
+}
+
+// Load env vars from dot env file
+if (file_exists(sprintf('%s/.env', APPLICATION_PATH))) {
+    $dotenv = new \Dotenv\Dotenv(APPLICATION_PATH);
+    $dotenv->load();
+}
+
 $app = new \Silex\Application();
 $app['application_env'] = \Tronald\Lib\Util::getEnvOrDefault('APPLICATION_ENV', 'prod');
 $app['debug']           = 'prod' === $app['application_env']  ? false : true;

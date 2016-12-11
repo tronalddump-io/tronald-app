@@ -1,0 +1,139 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"properties": {
+		"appeared_at": {
+			"type": "string"
+		},
+		"created_at": {
+			"type": "string"
+		},
+		"quote_id": {
+			"type": "string"
+		},
+		"tags": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"updated_at": {
+			"type": "string"
+		},
+		"value": {
+			"type": "string"
+		},
+		"_links": {
+			"type": "object",
+			"properties": {
+				"self": {
+					"type": "object",
+					"properties": {
+						"href": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"href"
+					]
+				}
+			},
+			"required": [
+				"self"
+			]
+		},
+		"_embedded": {
+			"type": "object",
+			"properties": {
+				"autor": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"created_at": {
+								"type": "string"
+							},
+							"bio": {
+								"type": "null"
+							},
+							"author_id": {
+								"type": "string"
+							},
+							"name": {
+								"type": "string"
+							},
+							"slug": {
+								"type": "string"
+							},
+							"updated_at": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"created_at",
+							"bio",
+							"author_id",
+							"name",
+							"slug",
+							"updated_at"
+						]
+					}
+				},
+				"source": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"created_at": {
+								"type": "string"
+							},
+							"filename": {
+								"type": [
+									"string",
+									"null"
+								]
+							},
+							"quote_source_id": {
+								"type": "string"
+							},
+							"remarks": {
+								"type": [
+									"string",
+									"null"
+								]
+							},
+							"updated_at": {
+								"type": "string"
+							},
+							"url": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"created_at",
+							"filename",
+							"quote_source_id",
+							"remarks",
+							"updated_at",
+							"url"
+						]
+					}
+				}
+			},
+			"required": [
+				"autor",
+				"source"
+			]
+		}
+	},
+	"required": [
+		"appeared_at",
+		"created_at",
+		"quote_id",
+		"tags",
+		"updated_at",
+		"value",
+		"_links",
+		"_embedded"
+	]
+}

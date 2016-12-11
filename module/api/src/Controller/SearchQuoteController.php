@@ -135,11 +135,11 @@ class SearchQuoteController
         $offset = $page > 1 ? ($page - 1) * $size : 0;
 
         if (! $query) {
-            throw new Exception\InvalidArgumentException('Parameter "query" must be a non-empty value');
+            throw new Exception\InvalidArgumentException('Parameter "query" must be a non-empty string.');
         }
 
         if (3 > strlen($query)) {
-            throw new Exception\InvalidArgumentException('Parameter "query" must have minimum length of 3 characters');
+            throw new Exception\InvalidArgumentException('Parameter "query" must have minimum length of 3 characters.');
         }
 
         /** @var array $response */
