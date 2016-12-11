@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tronalddump-io/tronald-app.svg?branch=master)](https://travis-ci.org/tronalddump-io/tronald-app)
+
 # TRONALDDUMP.IO
 
 Api & web archive for the dumbest things Donald Trump has ever said.
