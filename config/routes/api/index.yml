@@ -28,6 +28,12 @@ api.get_random_quote :
     defaults :
         _controller : \Tronald\App\Api\Controller\RandomQuoteController::getAction
 
+api.get_random_meme :
+    path     : /random/meme
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Api\Controller\RandomMemeController::getAction
+
 api.search_quote :
     path     : /search/quote
     methods  : GET
