@@ -69,7 +69,7 @@ class QuoteFormatter extends AbstractHalFormatter implements HalFormatterInterfa
             $data
         );
 
-        $hal->addResource('autor', $author);
+        $hal->addResource('author', $author);
         $hal->addResource('source', $source);
 
         return $hal;
