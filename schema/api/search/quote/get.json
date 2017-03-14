@@ -59,7 +59,7 @@
 							"_embedded": {
 								"type": "object",
 								"properties": {
-									"autor": {
+									"author": {
 										"type": "array",
 										"items": {
 											"type": "object",
@@ -129,7 +129,7 @@
 									}
 								},
 								"required": [
-									"autor",
+									"author",
 									"source"
 								]
 							}
