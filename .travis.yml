@@ -12,4 +12,4 @@ before_install:
  - composer self-update
 
 script:
- - phpunit --configuration phpunit.xml --coverage-text
+ - composer test
