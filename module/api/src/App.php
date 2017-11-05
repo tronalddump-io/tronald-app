@@ -74,4 +74,9 @@ $app->error(function (Exception $exception, HttpFoundation\Request $request) use
     return new Tronald\Lib\Http\JsonResponse($data);
 });
 
+// Add redirects
+$app->get('/tags', function() use ($app) {
+    return $app->redirect($app['url_generator']->generate('api.tags'), 301);
+});
+
 return $app;

@@ -47,10 +47,16 @@ api.system_time :
         _controller : \Tronald\App\Api\Controller\SystemTimeController::getAction
 
 api.tags :
-    path     : /tags
+    path     : /tag
     methods  : GET
     defaults :
         _controller : \Tronald\App\Api\Controller\TagsController::getAction
+
+api.get_tag  :
+    path     : /tag/{tag}
+    methods  : GET
+    defaults :
+        _controller : \Tronald\App\Api\Controller\TagsController::getTagAction
 
 api.teapot :
     path     : /teapot

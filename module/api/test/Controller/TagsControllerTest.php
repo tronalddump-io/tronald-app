@@ -21,7 +21,6 @@ use Tronald\App\Api\Controller\TagsController;
  */
 class TagsControllerTest extends AbstractControllerTest
 {
-
     /**
      *
      * @covers Tronald\App\Api\Controller\TagsController::getAction
@@ -29,12 +28,28 @@ class TagsControllerTest extends AbstractControllerTest
     public function testGetAction()
     {
         $client   = $this->createClient();
-        $crawler  = $client->request('GET', '/tags');
+        $crawler  = $client->request('GET', '/tag');
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertArrayHasKey('content-type', $response->headers->all());
         $this->assertEquals('application/hal+json', $response->headers->get('content-type'));
-        $this->assertJsonSchema($client->getResponse(), 'api/tags/get.json');
+        $this->assertJsonSchema($client->getResponse(), 'api/tag/get.json');
+    }
+
+    /**
+     *
+     * @covers Tronald\App\Api\Controller\TagsController::getTagAction
+     */
+    public function testGetTagAction()
+    {
+        $client   = $this->createClient();
+        $crawler  = $client->request('GET', '/tag/Hillary%20Clinton');
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertArrayHasKey('content-type', $response->headers->all());
+        $this->assertEquals('application/hal+json', $response->headers->get('content-type'));
+        $this->assertJsonSchema($client->getResponse(), 'api/tag/id/get.json');
     }
 }
