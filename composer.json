@@ -9,7 +9,7 @@
   "license": "GPL-3.0+",
   "type": "project",
   "require": {
-    "php": "~7.0",
+    "php": "~7.2",
     "ext-imagick": "*",
     "ext-pgsql": "*",
     "auth0/auth0-php": "~4.0",

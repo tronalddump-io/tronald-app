@@ -1,4 +1,4 @@
-FROM php:7.0-fpm-alpine
+FROM php:7.2.0-fpm-alpine3.7
 
 MAINTAINER Mathias Schilling <m@matchilling.com>
 
