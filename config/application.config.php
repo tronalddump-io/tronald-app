@@ -6,6 +6,8 @@ return [
         'web' => 'module/web/src/App.php'
     ],
     'server_names' => [
+        'api.localhost'             => 'api',
+        'www.localhost'             => 'web',
         'tronalddump.io'            => 'web',
         'api.tronalddump.local'     => 'api',
         'api.tronalddump.io'        => 'api',
