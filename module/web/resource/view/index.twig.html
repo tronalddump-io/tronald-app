@@ -17,7 +17,7 @@
     </section>
     {% if tags %}
         <section class="center">
-        <p>See what Tronald is thinks about:</p>
+        <p>See what Tronald thinks about:</p>
             {% for tag in tags %}
                 <a href="{{ path('web.get_tag', { tag: tag.name }) }}">{{ tag.name }}</a>{% if loop.last == false %},{% endif %}
             {% endfor %}
