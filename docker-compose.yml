@@ -25,7 +25,7 @@ services:
       dockerfile: ./docker/fpm/Dockerfile
     container_name: tronald-app
     environment:
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/tronald
     volumes:
       - .:/var/www/html
     depends_on:
@@ -35,25 +35,12 @@ services:
       - tronald-network
 
   postgres:
-    build:
-      context: .
-      dockerfile: ./docker/postgres/Dockerfile
-      args:
-        - AWS_ACCESS_KEY_ID
-        - AWS_SECRET_ACCESS_KEY
-        - AWS_DEFAULT_REGION
-        - BACKUP_URI=s3://io.tronalddump.api/database/latest.sql
+    image: tronalddump/postgres
     container_name: tronald-db
-    environment:
-      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
     ports:
       - "5432:5432"
     networks:
       - tronald-network
-    volumes:
-      - ./docker/postgres/data:/docker-entrypoint-initdb.d/
 
 networks:
   tronald-network:
