@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- phpunit xml configuration : https://phpunit.de/manual/current/en/appendixes.configuration.html -->
-<phpunit backupGlobals="false" backupStaticAttributes="false" bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" stopOnFailure="true" syntaxCheck="true">
-    <testsuites>
-        <testsuite name="api">
-            <directory suffix=".php">module/api/test</directory>
-        </testsuite>
-    </testsuites>
-</phpunit>
