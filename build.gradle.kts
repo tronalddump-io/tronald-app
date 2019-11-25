@@ -13,12 +13,22 @@ group = "io.tronalddump"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
+val sourceSets = the<SourceSetContainer>()
+
+sourceSets {
+    create("integTest") {
+        java.srcDir(file("src/integTest/groovy"))
+        resources.srcDir(file("src/integTest/resources"))
+        compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+        runtimeClasspath += output + compileClasspath
+    }
+}
+
 repositories {
     mavenCentral()
     maven { url = uri("https://repo.spring.io/milestone") }
     maven { url = uri("https://repo.spring.io/snapshot") }
 }
-
 
 dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -38,13 +48,22 @@ dependencies {
     testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
 }
 
-//tasks.withType<Test> {
-//    useJUnitPlatform()
-//}
-
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "1.8"
     }
+}
+
+tasks.register<Test>("integTest") {
+    description = "Runs the integration tests."
+    group = "verification"
+    testClassesDirs = sourceSets["integTest"].output.classesDirs
+    classpath = sourceSets["integTest"].runtimeClasspath
+
+    mustRunAfter(tasks["test"])
+}
+
+tasks.named("check") {
+    dependsOn("integTest")
 }
