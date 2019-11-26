@@ -6,11 +6,11 @@ import javax.persistence.*
 @Table(name = "quote_source")
 open class QuoteSourceEntity(
         @get:Basic
-        @get:Column(name = "created_at", nullable = true)
+        @get:Column(name = "created_at")
         var createdAt: java.sql.Timestamp? = null,
 
         @get:Basic
-        @get:Column(name = "filename", nullable = true)
+        @get:Column(name = "filename")
         var filename: String? = null,
 
         @get:Id
@@ -18,14 +18,14 @@ open class QuoteSourceEntity(
         var quoteSourceId: String? = null,
 
         @get:Basic
-        @get:Column(name = "remarks", nullable = true)
+        @get:Column(name = "remarks")
         var remarks: String? = null,
 
         @get:Basic
-        @get:Column(name = "updated_at", nullable = true)
+        @get:Column(name = "updated_at")
         var updatedAt: java.sql.Timestamp? = null,
 
         @get:Basic
-        @get:Column(name = "url", nullable = true)
+        @get:Column(name = "url")
         var url: String? = null
 )

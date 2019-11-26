@@ -10,22 +10,22 @@ open class AuthorEntity(
         var authorId: String? = null,
 
         @get:Basic
-        @get:Column(name = "bio", nullable = true)
+        @get:Column(name = "bio")
         var bio: String? = null,
 
         @get:Basic
-        @get:Column(name = "created_at", nullable = true)
+        @get:Column(name = "created_at")
         var createdAt: java.sql.Timestamp? = null,
 
         @get:Basic
-        @get:Column(name = "name", nullable = true)
+        @get:Column(name = "name")
         var name: String? = null,
 
         @get:Basic
-        @get:Column(name = "slug", nullable = true)
+        @get:Column(name = "slug")
         var slug: String? = null,
 
         @get:Basic
-        @get:Column(name = "updated_at", nullable = true)
+        @get:Column(name = "updated_at")
         var updatedAt: java.sql.Timestamp? = null
 )

@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "tag")
 open class TagEntity(
         @get:Basic
-        @get:Column(name = "created_at", nullable = true)
+        @get:Column(name = "created_at")
         var createdAt: java.sql.Timestamp? = null,
 
         @get:Id
@@ -14,11 +14,11 @@ open class TagEntity(
         var tagId: String? = null,
 
         @get:Basic
-        @get:Column(name = "updated_at", nullable = true)
+        @get:Column(name = "updated_at")
         var updatedAt: java.sql.Timestamp? = null,
 
         @get:Basic
-        @get:Column(name = "value", nullable = true)
+        @get:Column(name = "value")
         var value: String? = null
 )
 

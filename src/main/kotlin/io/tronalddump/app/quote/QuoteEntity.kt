@@ -12,7 +12,7 @@ import javax.persistence.*
 @Table(name = "quote")
 data class QuoteEntity(
         @get:Basic
-        @get:Column(name = "appeared_at", nullable = true)
+        @get:Column(name = "appeared_at")
         var appearedAt: Timestamp? = null,
 
         @get:JoinColumn(name = "author_id", referencedColumnName = "author_id")
@@ -20,7 +20,7 @@ data class QuoteEntity(
         var author: AuthorEntity? = null,
 
         @get:Basic
-        @get:Column(name = "created_at", nullable = true)
+        @get:Column(name = "created_at")
         var createdAt: Timestamp? = null,
 
         @get:Column(name = "quote_id", nullable = false, insertable = false, updatable = false)
@@ -40,11 +40,11 @@ data class QuoteEntity(
         var tags: List<TagEntity>? = emptyList(),
 
         @get:Basic
-        @get:Column(name = "updated_at", nullable = true)
+        @get:Column(name = "updated_at")
         var updatedAt: Timestamp? = null,
 
         @get:Basic
-        @get:Column(name = "value", nullable = true)
+        @get:Column(name = "value")
         var value: String? = null
 )
 
