@@ -1,5 +1,6 @@
 package io.tronalddump.app.quote
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import io.tronalddump.app.author.AuthorEntity
 import io.tronalddump.app.quote_source.QuoteSourceEntity
 import io.tronalddump.app.tag.TagEntity
@@ -7,6 +8,7 @@ import java.sql.Timestamp
 import javax.persistence.*
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true) // Jackson annotation to ignore unknown attributes when deserializing JSON.
 @Table(name = "quote")
 data class QuoteEntity(
         @get:Basic

@@ -1,4 +1,4 @@
-package io.tronalddump.app.quote
+package io.tronalddump.app.quote_source
 
 import io.tronalddump.app.Url
 import io.tronalddump.app.exception.EntityNotFoundException
@@ -9,10 +9,10 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
-@RequestMapping(value = [Url.QUOTE])
+@RequestMapping(value = [Url.QUOTE_SOURCE])
 @RestController
-class QuoteController(
-        private val repository: QuoteRepository
+class QuoteSourceController(
+        private val repository: QuoteSourceRepository
 ) {
 
     @ResponseBody
@@ -28,9 +28,9 @@ class QuoteController(
     fun findById(
             @RequestHeader(HttpHeaders.ACCEPT) acceptHeader: String,
             @PathVariable id: String
-    ): EntityModel<QuoteEntity> {
+    ): EntityModel<QuoteSourceEntity> {
         val entity = repository.findById(id).orElseThrow {
-            EntityNotFoundException("Quote with id \"$id\" not found.")
+            EntityNotFoundException("QuoteSource with id \"$id\" not found.")
         }
 
         if (acceptHeader != HAL_JSON_VALUE) {
@@ -38,10 +38,10 @@ class QuoteController(
         }
 
         val selfRel = linkTo(this::class.java)
-                .slash(entity.quoteId)
+                .slash(entity.quoteSourceId)
                 .withSelfRel()
 
-        return EntityModel<QuoteEntity>(entity)
+        return EntityModel<QuoteSourceEntity>(entity)
                 .add(selfRel)
     }
 }

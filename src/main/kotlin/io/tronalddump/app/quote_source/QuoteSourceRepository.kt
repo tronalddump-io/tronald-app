@@ -1,7 +1,7 @@
-package io.tronalddump.app.quote
+package io.tronalddump.app.quote_source
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface QuoteRepository : JpaRepository<QuoteEntity, String>
+interface QuoteSourceRepository : JpaRepository<QuoteSourceEntity, String>

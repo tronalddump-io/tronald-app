@@ -38,6 +38,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-mustache")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.hateoas:spring-hateoas:1.0.1.RELEASE")
 
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
 
