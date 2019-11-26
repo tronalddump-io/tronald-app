@@ -56,7 +56,7 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.register<Test>("integTest") {
+tasks.register<Test>("integrationTest") {
     description = "Runs the integration tests."
     group = "verification"
     testClassesDirs = sourceSets["integTest"].output.classesDirs
@@ -66,5 +66,5 @@ tasks.register<Test>("integTest") {
 }
 
 tasks.named("check") {
-    dependsOn("integTest")
+    dependsOn("integrationTest")
 }
