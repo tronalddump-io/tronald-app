@@ -14,20 +14,22 @@ class QuoteModelAssembler(
 ) : RepresentationModelAssemblerSupport<QuoteEntity, QuoteModel>(QuoteController::class.java, QuoteModel::class.java) {
 
     override fun toModel(entity: QuoteEntity): QuoteModel {
-        val model = this.createModelWithId(entity.quoteId.toString(), entity)
+        return this.createModelWithId(entity.quoteId.toString(), entity)
+    }
 
-        model.appearedAt = entity.appearedAt
-        model.createdAt = entity.createdAt
-        model.quoteId = entity.quoteId
-        model.tags = entity.tags?.map { it.value } ?: emptyList()
-        model.value = entity.value
-
+    override fun instantiateModel(entity: QuoteEntity): QuoteModel {
         val author = entity.author?.let { authorModelAssembler.toModel(it) }
         val source = entity.source?.let { quoteSourceModelAssembler.toModel(it) }
-        model.embedded = CollectionModel(
-                Arrays.asList(author, source)
-        )
 
-        return model
+        return QuoteModel(
+                entity.appearedAt,
+                entity.createdAt,
+                entity.quoteId,
+                entity.tags?.map { it.value } ?: emptyList(),
+                entity.value,
+                CollectionModel(
+                        Arrays.asList(author, source)
+                )
+        )
     }
 }

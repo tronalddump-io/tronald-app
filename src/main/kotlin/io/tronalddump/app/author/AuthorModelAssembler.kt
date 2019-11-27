@@ -7,15 +7,17 @@ import org.springframework.stereotype.Component
 class AuthorModelAssembler : RepresentationModelAssemblerSupport<AuthorEntity, AuthorModel>(AuthorController::class.java, AuthorModel::class.java) {
 
     override fun toModel(entity: AuthorEntity): AuthorModel {
-        val model = this.createModelWithId(entity.authorId.toString(), entity)
+        return this.createModelWithId(entity.authorId.toString(), entity)
+    }
 
-        model.authorId = entity.authorId
-        model.bio = entity.bio
-        model.createdAt = entity.createdAt
-        model.name = entity.name
-        model.slug = entity.slug
-        model.updatedAt = entity.updatedAt
-
-        return model
+    override fun instantiateModel(entity: AuthorEntity): AuthorModel {
+        return AuthorModel(
+                entity.authorId,
+                entity.bio,
+                entity.createdAt,
+                entity.name,
+                entity.slug,
+                entity.updatedAt
+        )
     }
 }

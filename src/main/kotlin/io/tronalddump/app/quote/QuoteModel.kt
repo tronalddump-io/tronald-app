@@ -8,12 +8,12 @@ import java.sql.Timestamp
 
 @Relation(collectionRelation = "quote")
 data class QuoteModel(
-        var appearedAt: Timestamp? = null,
-        var createdAt: Timestamp? = null,
-        var quoteId: String? = null,
-        var tags: List<String?>? = null,
-        var value: String? = null,
+        val appearedAt: Timestamp? = null,
+        val createdAt: Timestamp? = null,
+        val quoteId: String? = null,
+        val tags: List<String?>? = null,
+        val value: String? = null,
 
         @JsonUnwrapped
-        var embedded: CollectionModel<RepresentationModel<*>?>? = null
+        val embedded: CollectionModel<RepresentationModel<*>?>? = null
 ) : RepresentationModel<QuoteModel>()

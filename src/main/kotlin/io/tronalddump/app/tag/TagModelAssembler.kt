@@ -6,14 +6,16 @@ import org.springframework.stereotype.Component
 @Component
 class TagModelAssembler : RepresentationModelAssemblerSupport<TagEntity, TagModel>(TagController::class.java, TagModel::class.java) {
 
+    override fun instantiateModel(entity: TagEntity): TagModel {
+        return TagModel(
+                entity.createdAt,
+                entity.tagId,
+                entity.updatedAt,
+                entity.value
+        )
+    }
+
     override fun toModel(entity: TagEntity): TagModel {
-        val model = this.createModelWithId(entity.tagId.toString(), entity)
-
-        model.createdAt = entity.createdAt
-        model.tagId = entity.tagId
-        model.updatedAt = entity.updatedAt
-        model.value = entity.value
-
-        return model
+        return this.createModelWithId(entity.tagId.toString(), entity)
     }
 }

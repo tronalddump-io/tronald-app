@@ -7,15 +7,17 @@ import org.springframework.stereotype.Component
 class QuoteSourceModelAssembler : RepresentationModelAssemblerSupport<QuoteSourceEntity, QuoteSourceModel>(QuoteSourceController::class.java, QuoteSourceModel::class.java) {
 
     override fun toModel(entity: QuoteSourceEntity): QuoteSourceModel {
-        val model = this.createModelWithId(entity.quoteSourceId.toString(), entity)
+        return this.createModelWithId(entity.quoteSourceId.toString(), entity)
+    }
 
-        model.createdAt = entity.createdAt
-        model.filename = entity.filename
-        model.quoteSourceId = entity.quoteSourceId
-        model.remarks = entity.remarks
-        model.updatedAt = entity.updatedAt
-        model.url = entity.url
-
-        return model
+    override fun instantiateModel(entity: QuoteSourceEntity): QuoteSourceModel {
+        return QuoteSourceModel(
+                entity.createdAt,
+                entity.filename,
+                entity.quoteSourceId,
+                entity.remarks,
+                entity.updatedAt,
+                entity.url
+        )
     }
 }

@@ -6,10 +6,10 @@ import java.sql.Timestamp
 
 @Relation(collectionRelation = "author")
 data class AuthorModel(
-        var authorId: String? = null,
-        var bio: String? = null,
-        var createdAt: Timestamp? = null,
-        var name: String? = null,
-        var slug: String? = null,
-        var updatedAt: Timestamp? = null
+        val authorId: String? = null,
+        val bio: String? = null,
+        val createdAt: Timestamp? = null,
+        val name: String? = null,
+        val slug: String? = null,
+        val updatedAt: Timestamp? = null
 ) : RepresentationModel<AuthorModel>()
