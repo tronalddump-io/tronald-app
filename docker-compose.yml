@@ -3,12 +3,12 @@ version: '3'
 services:
   postgres:
     image: tronalddump/postgres
-    container_name: tronald-database
+    container_name: tronalddump-db
     ports:
       - "5432:5432"
     networks:
-      - tronald-network
+      - default
 
 networks:
-  tronald-network:
+  default:
     driver: bridge

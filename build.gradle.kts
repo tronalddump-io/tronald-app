@@ -3,10 +3,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
     id("org.gradle.groovy")
-    id("org.springframework.boot") version "2.2.2.BUILD-SNAPSHOT"
+    id("org.springframework.boot") version "2.2.1.RELEASE"
 
-    kotlin("jvm") version "1.3.60"
-    kotlin("plugin.spring") version "1.3.60"
+    kotlin("jvm") version "1.3.50"
+    kotlin("plugin.spring") version "1.3.50"
 }
 
 group = "io.tronalddump"
@@ -26,8 +26,6 @@ sourceSets {
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://repo.spring.io/milestone") }
-    maven { url = uri("https://repo.spring.io/snapshot") }
 }
 
 dependencies {
@@ -40,6 +38,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.hateoas:spring-hateoas:1.0.1.RELEASE")
 
+    testImplementation("com.h2database:h2")
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
