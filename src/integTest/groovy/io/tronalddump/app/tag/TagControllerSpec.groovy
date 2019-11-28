@@ -25,10 +25,10 @@ class TagControllerSpec extends Specification {
         def response = controller.findById(acceptHeader, id)
 
         then:
-        response.content.createdAt == Timestamp.valueOf('2019-11-24 08:58:53.220419')
-        response.content.tagId == id
-        response.content.value == 'Hillary Clinton'
-        response.content.updatedAt == Timestamp.valueOf('2019-11-24 08:58:53.220419')
+        response.createdAt != null
+        response.tagId == id
+        response.value == 'Hillary Clinton'
+        response.updatedAt != null
     }
 
     def 'should report an error if "QuoteEntity" does not exist'() {

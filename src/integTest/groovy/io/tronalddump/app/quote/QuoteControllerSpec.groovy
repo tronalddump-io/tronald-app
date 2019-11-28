@@ -25,13 +25,11 @@ class QuoteControllerSpec extends Specification {
         def response = controller.findById(acceptHeader, id)
 
         then:
-        response.content.appearedAt == Timestamp.valueOf('2015-12-18 18:25:35.000000')
-        response.content.author.name == 'Donald Trump'
-        response.content.quoteId == id
-        response.content.createdAt == Timestamp.valueOf('2019-11-22 19:08:28.930308')
-        response.content.source.quoteSourceId == 'RVlMuL1VT1-q8t9j9z0Y5w'
-        response.content.tags.stream().map({ it.value }).collect() == ['Jeb Bush']
-        response.content.value == 'I have an idea for Jeb Bush whose campaign is a disaster. Try using your last name & don’t be ashamed of it!'
+        response.appearedAt == Timestamp.valueOf('2015-12-18 18:25:35.000000')
+        response.quoteId == id
+        response.createdAt != null
+        response.tag.get(0) == 'Jeb Bush'
+        response.value == 'I have an idea for Jeb Bush whose campaign is a disaster. Try using your last name & don’t be ashamed of it!'
     }
 
     def 'should report an error if "QuoteEntity" does not exist'() {

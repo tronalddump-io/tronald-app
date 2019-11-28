@@ -23,8 +23,12 @@ class AuthorControllerSpec extends Specification {
         def response = controller.findById(acceptHeader, id)
 
         then:
-        response.content.authorId == id
-        response.content.name == 'Donald Trump'
+        response.authorId == id
+        response.bio == null
+        response.createdAt != null
+        response.name == 'Donald Trump'
+        response.slug == 'donald-trump'
+        response.updatedAt != null
     }
 
     def 'should report an error if "AuthorEntity" does not exist'() {

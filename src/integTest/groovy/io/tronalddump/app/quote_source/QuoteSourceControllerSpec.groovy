@@ -7,6 +7,8 @@ import org.springframework.http.MediaType
 import spock.lang.Specification
 import spock.lang.Subject
 
+import java.sql.Timestamp
+
 @SpringBootTest
 class QuoteSourceControllerSpec extends Specification {
 
@@ -23,8 +25,12 @@ class QuoteSourceControllerSpec extends Specification {
         def response = controller.findById(acceptHeader, id)
 
         then:
-        response.content.quoteSourceId == id
-        response.content.url == 'http://twitter.com/realDonaldTrump/status/689429603614502913'
+        response.createdAt != null
+        response.filename == null
+        response.quoteSourceId == id
+        response.remarks == null
+        response.updatedAt != null
+        response.url == 'http://twitter.com/realDonaldTrump/status/689429603614502913'
     }
 
     def 'should report an error if "QuoteSourceEntity" does not exist'() {
