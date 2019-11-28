@@ -1,0 +1,51 @@
+---
+version: 2
+
+jobs:
+  test-unit:
+    docker:
+      - image: circleci/openjdk:11.0.3-jdk-stretch
+    steps:
+      - checkout
+      - run:
+          name: Run unit test
+          command: ./gradlew clean test
+
+  test-integration:
+    docker:
+      - image: circleci/openjdk:11.0.3-jdk-stretch
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Run integration tests
+          command: |
+            docker network create -d bridge tronald-network
+            docker run \
+                --detach \
+                -p 5432:5432 \
+                --name tronald-database \
+                --network=tronald-network \
+                docker.io/tronalddump/postgres:latest
+
+            .circleci/script/wait.sh
+            .circleci/script/wait.sh localhost:5432 --timeout=60
+
+            # Check if all container are running
+            docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}\t{{.Networks}}"
+
+            ./gradlew clean integrationTest
+
+workflows:
+  version: 2
+
+  test:
+    jobs:
+      - test-unit:
+          filters:
+            branches:
+              only: spring-migration
+
+      - test-integration:
+          filters:
+            branches:
+              only: spring-migration
