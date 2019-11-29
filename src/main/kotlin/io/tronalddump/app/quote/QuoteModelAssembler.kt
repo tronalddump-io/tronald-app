@@ -26,6 +26,7 @@ class QuoteModelAssembler(
                 entity.createdAt,
                 entity.quoteId,
                 entity.tags?.map { it.value } ?: emptyList(),
+                entity.updatedAt,
                 entity.value,
                 CollectionModel(
                         Arrays.asList(author, source)

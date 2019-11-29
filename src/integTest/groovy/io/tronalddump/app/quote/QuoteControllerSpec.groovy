@@ -26,8 +26,9 @@ class QuoteControllerSpec extends Specification {
 
         then:
         response.appearedAt == Timestamp.valueOf('2015-12-18 18:25:35.000000')
-        response.quoteId == id
         response.createdAt != null
+        response.updatedAt != null
+        response.quoteId == id
         response.tags.get(0) == 'Jeb Bush'
         response.value == 'I have an idea for Jeb Bush whose campaign is a disaster. Try using your last name & don’t be ashamed of it!'
     }
