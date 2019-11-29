@@ -11,7 +11,7 @@ data class QuoteModel(
         val appearedAt: Timestamp? = null,
         val createdAt: Timestamp? = null,
         val quoteId: String? = null,
-        val tag: List<String?>? = null,
+        val tags: List<String?>? = null,
         val value: String? = null,
 
         @JsonUnwrapped

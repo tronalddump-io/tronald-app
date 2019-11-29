@@ -37,7 +37,7 @@ data class QuoteEntity(
                 inverseJoinColumns = [JoinColumn(name = "tag_id")]
         )
         @get:OneToMany(fetch = FetchType.EAGER)
-        var tag: List<TagEntity>? = emptyList(),
+        var tags: List<TagEntity>? = emptyList(),
 
         @get:Basic
         @get:Column(name = "updated_at")
