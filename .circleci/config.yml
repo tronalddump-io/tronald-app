@@ -40,7 +40,7 @@ jobs:
           at: .
       - run:
           name: Run integration test
-          command: SPRING_PROFILES_ACTIVE=debug,h2 ./gradlew clean integrationTest
+          command: ./gradlew integrationTest
 
   test-unit:
     docker:
@@ -65,8 +65,6 @@ workflows:
           filters:
             branches:
               ignore: master
-
-      - build
       - test-integration:
           requires:
             - build
