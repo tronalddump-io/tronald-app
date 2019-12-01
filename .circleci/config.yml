@@ -31,6 +31,38 @@ jobs:
           paths:
             - build
 
+  release-staging:
+    docker:
+      - image: circleci/openjdk:11.0.3-jdk-stretch
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_remote_docker
+      - run:
+          name: Log into docker registry
+          command: |
+            docker login --username=_ --password=${HEROKU_REGISTRY_TOKEN} registry.heroku.com
+      - run:
+          name: Build and push image
+          command: |
+            ./gradlew clean dockerTagHerokuStaging
+            docker push registry.heroku.com/tronalddump-staging/web
+      - run:
+          name: Release
+          command: |
+            export IMAGE_ID=$(docker inspect registry.heroku.com/tronalddump-staging/web --format={{.Id}})
+            curl -X PATCH \
+              https://api.heroku.com/apps/tronalddump-staging/formation \
+              -H 'Accept: application/vnd.heroku+json; version=3.docker-releases' \
+              -H "Authorization: Bearer ${HEROKU_REGISTRY_TOKEN}" \
+              -H 'Content-Type: application/json' \
+              -d "{\"updates\":[{\"type\":\"web\",\"docker_image\":\"${IMAGE_ID}\"}]}"
+      - run:
+          name: Remove docker credentials
+          command: |
+            rm "${HOME}/.docker/config.json"
+
   test-integration:
     docker:
       - image: circleci/openjdk:11.0.3-jdk-stretch
@@ -99,7 +131,7 @@ jobs:
 workflows:
   version: 2
 
-  test:
+  test_and_release:
     jobs:
       - build
       - test-unit:
@@ -117,6 +149,14 @@ workflows:
       - test-postman:
           requires:
             - build
+          filters:
+            branches:
+              ignore: master
+      - release-staging:
+          requires:
+            - test-integration
+            - test-postman
+            - test-unit
           filters:
             branches:
               ignore: master

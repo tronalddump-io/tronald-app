@@ -104,8 +104,11 @@ tasks {
         name = "$imageName:latest"
         tag("current", "$imageName:$appVer")
         tag("latest", "$imageName:latest")
+        tag("herokuStaging", "registry.heroku.com/tronalddump-staging/web")
 
         files(bootJar.archiveFile)
+        files(file("$projectDir/src/main/resources"))
+
         setDockerfile(file("$projectDir/src/main/docker/Dockerfile"))
         buildArgs(
                 mapOf("JAR_FILE" to bootJar.archiveFileName.get())
