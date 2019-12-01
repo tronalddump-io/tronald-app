@@ -42,6 +42,49 @@ jobs:
           name: Run integration test
           command: ./gradlew integrationTest
 
+  test-postman:
+    docker:
+      - image: circleci/openjdk:11.0.3-jdk-stretch
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_remote_docker
+      - run:
+          name: Run postman test
+          command: |
+            export APP_GROUP="io.tronalddump"
+
+            ./gradlew dockerTag
+
+            export DOCKER_NET="${APP_GROUP}-net"
+            docker network create -d bridge $DOCKER_NET
+
+            docker run \
+                --rm \
+                --detach \
+                --env "SPRING_PROFILES_ACTIVE=h2" \
+                --hostname app \
+                --name app \
+                --network=$DOCKER_NET \
+                -p 8080:8080 \
+                "${APP_GROUP}/app:$CIRCLE_SHA1"
+
+            sleep 10
+
+            # Check if all container are running
+            docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}\t{{.Networks}}"
+
+            # It's not possible to use volume mounting with the docker executor in CircleCI.
+            # So we create a dummy container which will hold a volume with config, copy our
+            # postman files into this volume, and start the newman runner using this volume.
+            docker create -v /etc/newman --name newman-config --network=$DOCKER_NET alpine:3.4 /bin/true
+            docker cp ./postman/io.tronalddump.postman_collection.json newman-config:/etc/newman
+            docker cp ./postman/docker.postman_environment.json newman-config:/etc/newman
+            docker run --volumes-from newman-config --name newman --network=$DOCKER_NET --rm postman/newman \
+              run "/etc/newman/io.tronalddump.postman_collection.json" \
+              --environment="/etc/newman/docker.postman_environment.json"
+
   test-unit:
     docker:
       - image: circleci/openjdk:11.0.3-jdk-stretch
@@ -66,6 +109,12 @@ workflows:
             branches:
               ignore: master
       - test-integration:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: master
+      - test-postman:
           requires:
             - build
           filters:

@@ -11,7 +11,7 @@ plugins {
 }
 
 val appName = "app"
-val appVer by lazy { "0.0.1+${gitRev()}" }
+val appVer by lazy { gitRev() }
 
 group = "io.tronalddump"
 version = appVer
@@ -78,7 +78,7 @@ tasks {
 
     docker {
         val bootJar = bootJar.get()
-        val imageName = "tronalddump/$appName"
+        val imageName = "$group/$appName"
 
         name = "$imageName:latest"
         tag("current", "$imageName:$appVer")
@@ -112,7 +112,7 @@ tasks {
     }
 }
 
-fun gitRev() = ProcessBuilder("git", "rev-parse", "--short", "HEAD").start().let { p ->
+fun gitRev() = ProcessBuilder("git", "rev-parse", "HEAD").start().let { p ->
     p.waitFor(100, TimeUnit.MILLISECONDS)
     p.inputStream.bufferedReader().readLine() ?: "none"
 }
