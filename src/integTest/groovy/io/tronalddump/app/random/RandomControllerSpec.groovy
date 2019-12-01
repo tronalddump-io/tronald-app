@@ -1,14 +1,14 @@
 package io.tronalddump.app.random
 
+import io.tronalddump.app.BaseSpecification
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 
 @SpringBootTest
-class RandomControllerSpec extends Specification {
+class RandomControllerSpec extends BaseSpecification {
 
     @Autowired
     @Subject

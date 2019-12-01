@@ -1,16 +1,16 @@
 package io.tronalddump.app.quote
 
+import io.tronalddump.app.BaseSpecification
 import io.tronalddump.app.exception.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import spock.lang.Specification
 import spock.lang.Subject
 
 import java.sql.Timestamp
 
 @SpringBootTest
-class QuoteControllerSpec extends Specification {
+class QuoteControllerSpec extends BaseSpecification {
 
     @Autowired
     @Subject

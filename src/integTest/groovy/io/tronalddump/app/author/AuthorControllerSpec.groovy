@@ -1,14 +1,14 @@
 package io.tronalddump.app.author
 
+import io.tronalddump.app.BaseSpecification
 import io.tronalddump.app.exception.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import spock.lang.Specification
 import spock.lang.Subject
 
 @SpringBootTest
-class AuthorControllerSpec extends Specification {
+class AuthorControllerSpec extends BaseSpecification {
 
     @Autowired
     @Subject
