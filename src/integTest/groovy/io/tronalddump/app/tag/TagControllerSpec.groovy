@@ -41,4 +41,17 @@ class TagControllerSpec extends BaseSpecification {
         def exception = thrown(EntityNotFoundException)
         exception.message == 'Tag with id "does-not-exist" not found.'
     }
+
+    def 'should find "PageModel" for all tags'() {
+        given:
+        def acceptHeader = MediaType.APPLICATION_JSON_VALUE
+
+        when:
+        def response = controller.findAll(acceptHeader)
+
+        then:
+        response.count == 28
+        response.embedded != null
+        response.total == 28
+    }
 }

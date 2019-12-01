@@ -1,5 +1,8 @@
 package io.tronalddump.app.tag
 
+import io.tronalddump.app.search.PageModel
+import org.springframework.data.domain.Page
+import org.springframework.hateoas.CollectionModel
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport
 import org.springframework.stereotype.Component
 
@@ -17,5 +20,15 @@ class TagModelAssembler : RepresentationModelAssemblerSupport<TagEntity, TagMode
 
     override fun toModel(entity: TagEntity): TagModel {
         return this.createModelWithId(entity.tagId.toString(), entity)
+    }
+
+    fun toPageModel(list: List<TagEntity>): PageModel {
+        return PageModel(
+                list.size,
+                list.size.toLong(),
+                CollectionModel(
+                        toCollectionModel(list)
+                )
+        )
     }
 }
