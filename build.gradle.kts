@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("com.palantir.docker") version "0.22.1"
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
     id("org.gradle.groovy")
     id("org.springframework.boot") version "2.2.1.RELEASE"
@@ -9,8 +10,11 @@ plugins {
     kotlin("plugin.spring") version "1.3.50"
 }
 
+val appName = "app"
+val appVer by lazy { "0.0.1+${gitRev()}" }
+
 group = "io.tronalddump"
-version = "0.0.1-SNAPSHOT"
+version = appVer
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 val sourceSets = the<SourceSetContainer>()
@@ -48,22 +52,67 @@ dependencies {
     testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
+springBoot {
+    buildInfo {
+        properties {
+            artifact = "$appName-$appVer.jar"
+            version = appVer
+            name = appName
+        }
     }
 }
 
-tasks.register<Test>("integrationTest") {
-    description = "Runs the integration tests."
-    group = "verification"
-    testClassesDirs = sourceSets["integTest"].output.classesDirs
-    classpath = sourceSets["integTest"].runtimeClasspath
+tasks {
+    bootJar {
+        manifest {
+            attributes("Multi-Release" to true)
+        }
 
-    mustRunAfter(tasks["test"])
+        archiveBaseName.set(appName)
+        archiveVersion.set(appVer)
+
+        if (project.hasProperty("archiveName")) {
+            archiveFileName.set(project.properties["archiveName"] as String)
+        }
+    }
+
+    docker {
+        val bootJar = bootJar.get()
+        val imageName = "tronalddump/$appName"
+
+        name = "$imageName:latest"
+        tag("current", "$imageName:$appVer")
+        tag("latest", "$imageName:latest")
+
+        files(bootJar.archiveFile)
+        setDockerfile(file("$projectDir/src/main/docker/Dockerfile"))
+        buildArgs(
+                mapOf("JAR_FILE" to bootJar.archiveFileName.get())
+        )
+    }
+
+    named("check") {
+        dependsOn("integrationTest")
+    }
+
+    register<Test>("integrationTest") {
+        description = "Runs the integration tests."
+        group = "verification"
+        testClassesDirs = sourceSets["integTest"].output.classesDirs
+        classpath = sourceSets["integTest"].runtimeClasspath
+
+        mustRunAfter(test)
+    }
+
+    withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "1.8"
+        }
+    }
 }
 
-tasks.named("check") {
-    dependsOn("integrationTest")
+fun gitRev() = ProcessBuilder("git", "rev-parse", "--short", "HEAD").start().let { p ->
+    p.waitFor(100, TimeUnit.MILLISECONDS)
+    p.inputStream.bufferedReader().readLine() ?: "none"
 }
