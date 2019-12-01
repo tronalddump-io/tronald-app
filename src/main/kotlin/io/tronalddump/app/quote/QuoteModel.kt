@@ -6,7 +6,7 @@ import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.core.Relation
 import java.sql.Timestamp
 
-@Relation(collectionRelation = "quote")
+@Relation(collectionRelation = "quotes")
 data class QuoteModel(
         val appearedAt: Timestamp? = null,
         val createdAt: Timestamp? = null,
