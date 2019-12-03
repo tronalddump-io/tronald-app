@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/default}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title th:text="'Search for: ' + ${query}"/>
+    <meta name="description" th:attr="content='Search for: ' + ${query}"/>
+    <link th:href='${model.getLink("self").get().href}' rel="canonical"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <section>
+        <form action="/search/quote" method="GET" class="center">
+            <h1 class="center">
+                <small>Search for: </small>
+                <input type="text" name="query" th:value="${query}" pattern=".{3,}" required
+                       title="3 characters minimum">
+                <input type="submit" value="Search" class="btn">
+            </h1>
+        </form>
+        <p style="text-align: center">
+            <small th:if='${!result.content.isEmpty()}' th:text="${model.total} + ' results'"/>
+            <small th:if='${result.content.isEmpty()}'>Sorry, no results found</small>
+        </p>
+        <blockquote th:each="quote : ${result.content}" cite="'/quote/' + ${quote.quoteId}">
+            <p th:text="${quote.value}"/>
+            <footer> - <cite>
+                <a th:href="'/quote/' + ${quote.quoteId}">
+                    <span th:text="${#calendars.day(quote.appearedAt)}"/>
+                    <span th:text="${#calendars.monthName(quote.appearedAt)}"/>
+                    <span th:text="${#calendars.year(quote.appearedAt)}"/>
+                </a></cite>
+            </footer>
+        </blockquote>
+        <nav th:if='${!result.content.isEmpty()}'>
+            <a th:if='${model.getLink("prev").isPresent()}' th:href='${model.getLink("prev").get().href}'>Prev</a>
+            <a th:if='${model.getLink("next").isPresent()}' th:href='${model.getLink("next").get().href}'>Next</a>
+        </nav>
+    </section>
+</div>
+</body>
+</html>
