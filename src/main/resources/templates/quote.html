@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/default}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title layout:fragment="title" th:text="${quote.value}">${quote.value}</title>
+    <meta name="description" th:attr="content=${quote.value}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div>
+        <blockquote><p th:text="${quote.value}"/></blockquote>
+        <dl class="meta">
+            <dt>Appeared at:</dt>
+            <dd>
+                <span th:text="${#calendars.day(quote.appearedAt)}"/>
+                <span th:text="${#calendars.monthName(quote.appearedAt)}"/>
+                <span th:text="${#calendars.year(quote.appearedAt)}"/>
+            </dd>
+            <dt th:if="${not #lists.isEmpty(quote.tags)}">Tags</dt>
+            <dd th:if="${not #lists.isEmpty(quote.tags)}">
+                <a th:each="tag : ${quote.tags}" th:href="'/tag/' + ${tag.value}" th:text="${tag.value}"/>
+            </dd>
+            <dt th:if="${not #lists.isEmpty(quote.source)}">Source</dt>
+            <dd th:if="${not #lists.isEmpty(quote.source)}">
+                <a th:each="source : ${quote.source}" th:href="${source.url}" rel="nofollow" target="_blank">here</a>
+            </dd>
+        </dl>
+    </div>
+</div>
+</body>
+</html>
