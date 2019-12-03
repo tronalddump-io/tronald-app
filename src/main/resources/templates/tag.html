@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/default}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>What Tronald thinks about {{ tag }}</title>
+    <meta content="description" name="'What Tronald thinks about' + ${tag.value}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <section>
+        <h1 class="center">
+            <small>What Tronald thinks about: </small>
+            <span th:text="${tag.value}"></span>
+        </h1>
+
+        <blockquote th:each="quote : ${tag.quotes}" cite="'/quote/' + ${quote.quoteId}">
+            <p th:text="${quote.value}"/>
+            <footer> - <cite>
+                <a th:href="'/quote/' + ${quote.quoteId}">
+                    <span th:text="${#calendars.day(quote.appearedAt)}"/>
+                    <span th:text="${#calendars.monthName(quote.appearedAt)}"/>
+                    <span th:text="${#calendars.year(quote.appearedAt)}"/>
+                </a></cite>
+            </footer>
+        </blockquote>
+    </section>
+</div>
+</body>
+</html>

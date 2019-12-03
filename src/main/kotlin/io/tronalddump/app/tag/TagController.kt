@@ -3,13 +3,11 @@ package io.tronalddump.app.tag
 import io.tronalddump.app.Url
 import io.tronalddump.app.exception.EntityNotFoundException
 import io.tronalddump.app.search.PageModel
-import io.tronalddump.app.search.PageModelAssembler
-import org.springframework.data.domain.Page
-import org.springframework.hateoas.CollectionModel
 import org.springframework.hateoas.MediaTypes.HAL_JSON_VALUE
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.ModelAndView
 
 @RequestMapping(value = [Url.TAG])
 @RestController
@@ -54,5 +52,23 @@ class TagController(
         }
 
         return assembler.toModel(entity)
+    }
+
+    @ResponseBody
+    @RequestMapping(
+            headers = [
+                "${HttpHeaders.ACCEPT}=${MediaType.TEXT_HTML_VALUE}"
+            ],
+            method = [RequestMethod.GET],
+            produces = [MediaType.TEXT_HTML_VALUE],
+            value = ["/{value}"]
+    )
+    fun findByValue(@PathVariable value: String): ModelAndView {
+        val entity = repository.findByValue(value).orElseThrow {
+            EntityNotFoundException("Tag with value \"$value\" not found.")
+        }
+
+        return ModelAndView("tag")
+                .addObject("tag", entity)
     }
 }
