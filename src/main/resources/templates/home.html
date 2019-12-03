@@ -20,7 +20,7 @@
     <section class="center">
         <p>See what Tronald thinks about:</p>
         <ul class="inline comma-separated">
-            <li th:each="tag, i : ${tags}"><a th:href="${tag.getLink('self').get().href}" th:text="${tag.value}"/></li>
+            <li th:each="tag, i : ${tags}"><a th:href="'/tag/' + ${tag.value}" th:text="${tag.value}"/></li>
         </ul>
     </section>
 </div>
