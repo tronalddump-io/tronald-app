@@ -1,7 +1,6 @@
 package io.tronalddump.app.tag
 
 import io.tronalddump.app.search.PageModel
-import org.springframework.data.domain.Page
 import org.springframework.hateoas.CollectionModel
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport
 import org.springframework.stereotype.Component
