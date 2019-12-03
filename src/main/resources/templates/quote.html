@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{layouts/default}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title layout:fragment="title" th:text="${quote.value}">${quote.value}</title>
+    <title th:text="${quote.value}"/>
     <meta name="description" th:attr="content=${quote.value}"/>
+    <link th:href="'/quote/' + ${quote.quoteId}" rel="canonical"/>
 </head>
 <body>
 <div layout:fragment="content">

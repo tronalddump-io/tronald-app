@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{layouts/default}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>What Tronald thinks about {{ tag }}</title>
-    <meta content="description" name="'What Tronald thinks about' + ${tag.value}"/>
+    <title th:text="'What Tronald thinks about ' + ${tag.value}"/>
+    <meta name="description" th:attr="content='What Tronald thinks about ' + ${tag.value}"/>
+    <link th:href="'/tag/' + ${tag.value}" rel="canonical"/>
 </head>
 <body>
 <div layout:fragment="content">
