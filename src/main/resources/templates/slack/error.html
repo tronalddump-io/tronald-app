@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{layouts/default}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>Tronald Dump on Slack</title>
+    <title>Oops, an error has occurred</title>
     <link rel="canonical" href="/connect/slack"/>
 </head>
 <body>
 <div layout:fragment="content">
     <section class="center">
-        <h1>Make Slack Great Again!</h1>
-        <p>Tronalddump.io is a free <a title="Api documentation" href="https://docs.tronalddump.io/">api</a> and web archive for the dumbest things Donald Trump has ever said ...</p>
-        <p>... and Tadaaaa, luckily for you we've got a nice Slack bot as well. So you can chat with The Tronald 24/7 on your favorite messenger platform and get inspired by this visionary leader.</p>
-    </section>
-    <hr class="poo">
-    <section class="center">
-        <h1>Slack Bot</h1>
-        <ul class="inline">
-            <li><p>Get random Tronald quotes by typing <code class="quoted beige">/tronald</code> into your Slack console.</p></li>
-            <li><p>Search the complete dump with <code class="quoted beige">/tronald ? {search_term}</code>.</p></li>
-        </ul>
+        <div class="alert alert-error" role="alert">
+            <p>Oops, an error has occurred. Please try again!</p>
+        </div>
         <a th:href="${authorizeUri.toUriString()}" rel="nofollow" onclick="ga('send', 'event', 'button', 'click',
         'add_to_slack')">
             <img alt="Add to Slack" height="40" width="139"

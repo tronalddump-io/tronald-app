@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/default}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Congrats, the app was successfully installed for your Slack team!</title>
+    <link rel="canonical" href="/connect/slack"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <section class="center">
+        <h1>Slack Bot</h1>
+        <div class="alert alert-success" role="alert">
+            <p>The Tronald was successfully installed for your Slack <strong th:text="${accessToken.teamName}"/> team</p>
+            <p>Get random Tronald quotes by typing <code class="quoted bold">/tronald</code> into your Slack console.
+            </p>
+            <p>Search the complete dump with <code class="quoted bold">/tronald ? {search_term}</code>.</p>
+
+            <a href="https://slack.com">Open Slack</a>
+        </div>
+    </section>
+</div>
+</body>
+</html>
