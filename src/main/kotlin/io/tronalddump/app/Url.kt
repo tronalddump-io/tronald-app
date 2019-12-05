@@ -9,6 +9,7 @@ object Url {
     const val QUOTE_SOURCE = "/quote-source"
     const val RANDOM = "/random"
     const val SEARCH = "/search"
+    const val SEARCH_QUOTE = "/search/quote"
     const val SLACK_CONNECT = "/connect/slack"
     const val TAG = "/tag"
 }

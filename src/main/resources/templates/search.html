@@ -16,24 +16,26 @@
                 <input type="submit" value="Search" class="btn">
             </h1>
         </form>
-        <p style="text-align: center">
-            <small th:if='${!result.content.isEmpty()}' th:text="${model.total} + ' results'"/>
-            <small th:if='${result.content.isEmpty()}'>Sorry, no results found</small>
-        </p>
-        <blockquote th:each="quote : ${result.content}" cite="'/quote/' + ${quote.quoteId}">
-            <p th:text="${quote.value}"/>
-            <footer> - <cite>
-                <a th:href="'/quote/' + ${quote.quoteId}">
-                    <span th:text="${#calendars.day(quote.appearedAt)}"/>
-                    <span th:text="${#calendars.monthName(quote.appearedAt)}"/>
-                    <span th:text="${#calendars.year(quote.appearedAt)}"/>
-                </a></cite>
-            </footer>
-        </blockquote>
-        <nav th:if='${!result.content.isEmpty()}'>
-            <a th:if='${model.getLink("prev").isPresent()}' th:href='${model.getLink("prev").get().href}'>Prev</a>
-            <a th:if='${model.getLink("next").isPresent()}' th:href='${model.getLink("next").get().href}'>Next</a>
-        </nav>
+        <section id="search-result">
+            <p style="text-align: center">
+                <small th:if='${!result.content.isEmpty()}' th:text="${model.total} + ' results'"/>
+                <small th:if='${result.content.isEmpty()}'>Sorry, no results found</small>
+            </p>
+            <blockquote th:each="quote : ${result.content}" th:cite="'/quote/' + ${quote.quoteId}">
+                <p th:text="${quote.value}"/>
+                <footer> - <cite>
+                    <a th:href="'/quote/' + ${quote.quoteId}">
+                        <span th:text="${#calendars.day(quote.appearedAt)}"/>
+                        <span th:text="${#calendars.monthName(quote.appearedAt)}"/>
+                        <span th:text="${#calendars.year(quote.appearedAt)}"/>
+                    </a></cite>
+                </footer>
+            </blockquote>
+            <nav th:if='${!result.content.isEmpty()}'>
+                <a th:if='${model.getLink("prev").isPresent()}' th:href='${model.getLink("prev").get().href}'>Prev</a>
+                <a th:if='${model.getLink("next").isPresent()}' th:href='${model.getLink("next").get().href}'>Next</a>
+            </nav>
+        </section>
     </section>
 </div>
 </body>

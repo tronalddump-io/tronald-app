@@ -17,7 +17,7 @@ jobs:
           key: v1-gradle-cache-{{ checksum "build.gradle.kts" }}
       - run:
           name: Install dependencies
-          command: ./gradlew build -x test -x integrationTest
+          command: ./gradlew build -x test
       - save_cache:
           paths:
             - ~/.gradle/wrapper
