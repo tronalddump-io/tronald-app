@@ -31,6 +31,43 @@ jobs:
           paths:
             - build
 
+  test-browser:
+    docker:
+      - image: circleci/openjdk:11.0.3-jdk-stretch
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_remote_docker
+      - run:
+          name: Run browser test
+          command: |
+            export APP_GROUP="io.tronalddump"
+
+            ./gradlew dockerTag
+
+            export DOCKER_NET="${APP_GROUP}-net"
+            docker network create -d bridge $DOCKER_NET
+
+            docker run \
+                --rm \
+                --detach \
+                --env "SPRING_PROFILES_ACTIVE=h2" \
+                --hostname app \
+                --name app \
+                --network=$DOCKER_NET \
+                -p 8080:8080 \
+                "${APP_GROUP}/app:$CIRCLE_SHA1"
+
+            docker build \
+                --file src/browserTest/docker/Dockerfile \
+                --tag "io.tronalddump/gradle" .
+
+            docker run \
+                --rm \
+                --network=$DOCKER_NET \
+                "${APP_GROUP}/gradle" browserTest
+
   test-integration:
     docker:
       - image: circleci/openjdk:11.0.3-jdk-stretch
@@ -98,6 +135,16 @@ jobs:
 
 workflows:
   version: 2
+
+  test-browser:
+    jobs:
+      - build
+      - test-browser:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: master
 
   test:
     jobs:

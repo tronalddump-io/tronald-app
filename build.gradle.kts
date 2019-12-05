@@ -1,7 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.energizedwork.webdriver-binaries") version "1.4"
     id("com.palantir.docker") version "0.22.1"
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
     id("org.gradle.groovy")
@@ -19,8 +18,6 @@ version = appVer
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 // versions
-val chromeDriverVersion = "2.36"
-val geckoDriverVersion = "0.24.0"
 val seleniumVersion = "3.141.59"
 val spockVersion = "1.3-groovy-2.5"
 
@@ -68,11 +65,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") { exclude(group = "org.junit.vintage", module = "junit-vintage-engine") }
 }
 
-webdriverBinaries {
-    chromedriver = chromeDriverVersion
-    geckodriver = geckoDriverVersion
-}
-
 springBoot {
     buildInfo {
         properties {
@@ -113,39 +105,15 @@ tasks {
     }
 
     register<Test>("browserTest") {
-        description = "Runs the browser tests."
+        description = "Runs the browser tests in headless mode."
         group = "verification"
         testClassesDirs = sourceSets["browserTest"].output.classesDirs
         classpath = sourceSets["browserTest"].runtimeClasspath
 
         outputs.upToDateWhen { false }
 
-        systemProperty("geb.build.reportsDir", reporting.file("geb/chromeHeadless"))
-        systemProperty("geb.env", "chromeHeadless")
-    }
-
-    register<Test>("browserTestChrome") {
-        description = "Runs the browser tests using Chrome."
-        group = "verification"
-        testClassesDirs = sourceSets["browserTest"].output.classesDirs
-        classpath = sourceSets["browserTest"].runtimeClasspath
-
-        outputs.upToDateWhen { false }
-
-        systemProperty("geb.build.reportsDir", reporting.file("geb/chrome"))
-        systemProperty("geb.env", "chrome")
-    }
-
-    register<Test>("browserTestChromeHeadless") {
-        description = "Runs the browser tests using headless Chrome."
-        group = "verification"
-        testClassesDirs = sourceSets["browserTest"].output.classesDirs
-        classpath = sourceSets["browserTest"].runtimeClasspath
-
-        outputs.upToDateWhen { false }
-
-        systemProperty("geb.build.reportsDir", reporting.file("geb/chromeHeadless"))
-        systemProperty("geb.env", "chromeHeadless")
+        systemProperty("geb.build.reportsDir", reporting.file("geb/headless"))
+        systemProperty("geb.env", "headless")
     }
 
     register<Test>("integrationTest") {

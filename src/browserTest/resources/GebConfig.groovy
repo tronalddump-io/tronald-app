@@ -1,3 +1,7 @@
 /* See: http://www.gebish.org/manual/current/#configuration */
+def env = System.getenv()
 
-baseUrl = "http://localhost:8080"
+baseUrl = env['BASE_URL']
+if (!baseUrl) {
+    baseUrl = "http://localhost:8080"
+}
