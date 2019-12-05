@@ -27,9 +27,9 @@ val spockVersion = "1.3-groovy-2.5"
 val sourceSets = the<SourceSetContainer>()
 
 sourceSets {
-    create("accTest") {
-        java.srcDir(file("src/accTest/groovy"))
-        resources.srcDir(file("src/accTest/resources"))
+    create("browserTest") {
+        java.srcDir(file("src/browserTest/groovy"))
+        resources.srcDir(file("src/browserTest/resources"))
         compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
         runtimeClasspath += output + compileClasspath
     }
@@ -112,11 +112,11 @@ tasks {
         )
     }
 
-    register<Test>("acceptanceTest") {
-        description = "Runs the acceptance tests."
+    register<Test>("browserTest") {
+        description = "Runs the browser tests."
         group = "verification"
-        testClassesDirs = sourceSets["accTest"].output.classesDirs
-        classpath = sourceSets["accTest"].runtimeClasspath
+        testClassesDirs = sourceSets["browserTest"].output.classesDirs
+        classpath = sourceSets["browserTest"].runtimeClasspath
 
         outputs.upToDateWhen { false }
 
@@ -124,11 +124,11 @@ tasks {
         systemProperty("geb.env", "chromeHeadless")
     }
 
-    register<Test>("acceptanceTestChrome") {
-        description = "Runs the acceptance tests using Chrome."
+    register<Test>("browserTestChrome") {
+        description = "Runs the browser tests using Chrome."
         group = "verification"
-        testClassesDirs = sourceSets["accTest"].output.classesDirs
-        classpath = sourceSets["accTest"].runtimeClasspath
+        testClassesDirs = sourceSets["browserTest"].output.classesDirs
+        classpath = sourceSets["browserTest"].runtimeClasspath
 
         outputs.upToDateWhen { false }
 
@@ -136,11 +136,11 @@ tasks {
         systemProperty("geb.env", "chrome")
     }
 
-    register<Test>("acceptanceTestChromeHeadless") {
-        description = "Runs the acceptance tests using headless Chrome."
+    register<Test>("browserTestChromeHeadless") {
+        description = "Runs the browser tests using headless Chrome."
         group = "verification"
-        testClassesDirs = sourceSets["accTest"].output.classesDirs
-        classpath = sourceSets["accTest"].runtimeClasspath
+        testClassesDirs = sourceSets["browserTest"].output.classesDirs
+        classpath = sourceSets["browserTest"].runtimeClasspath
 
         outputs.upToDateWhen { false }
 
