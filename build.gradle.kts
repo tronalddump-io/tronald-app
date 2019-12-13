@@ -104,6 +104,7 @@ tasks {
         name = "$imageName:latest"
         tag("current", "$imageName:$appVer")
         tag("latest", "$imageName:latest")
+        tag("herokuProduction", "registry.heroku.com/tronalddump/web")
         tag("herokuStaging", "registry.heroku.com/tronalddump-staging/web")
 
         files(bootJar.archiveFile)

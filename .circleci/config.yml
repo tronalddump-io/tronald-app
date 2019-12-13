@@ -31,6 +31,38 @@ jobs:
           paths:
             - build
 
+  release-production:
+    docker:
+      - image: circleci/openjdk:11.0.3-jdk-stretch
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_remote_docker
+      - run:
+          name: Log into docker registry
+          command: |
+            docker login --username=_ --password=${HEROKU_REGISTRY_TOKEN} registry.heroku.com
+      - run:
+          name: Build and push image
+          command: |
+            ./gradlew clean dockerTagHerokuProduction
+            docker push registry.heroku.com/tronalddump/web
+      - run:
+          name: Release
+          command: |
+            export IMAGE_ID=$(docker inspect registry.heroku.com/tronalddump/web --format={{.Id}})
+            curl -X PATCH \
+              https://api.heroku.com/apps/tronalddump/formation \
+              -H 'Accept: application/vnd.heroku+json; version=3.docker-releases' \
+              -H "Authorization: Bearer ${HEROKU_REGISTRY_TOKEN}" \
+              -H 'Content-Type: application/json' \
+              -d "{\"updates\":[{\"type\":\"web\",\"docker_image\":\"${IMAGE_ID}\"}]}"
+      - run:
+          name: Remove docker credentials
+          command: |
+            rm "${HOME}/.docker/config.json"
+
   release-staging:
     docker:
       - image: circleci/openjdk:11.0.3-jdk-stretch
@@ -131,7 +163,7 @@ jobs:
 workflows:
   version: 2
 
-  test_and_release:
+  test_and_release_staging:
     jobs:
       - build
       - test-unit:
@@ -160,3 +192,41 @@ workflows:
           filters:
             branches:
               ignore: master
+
+  test_and_release_production:
+    jobs:
+      - build
+      - test-unit:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - test-integration:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - test-postman:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - release-staging:
+          requires:
+            - test-integration
+            - test-postman
+            - test-unit
+          filters:
+            branches:
+              only: master
+      - release-production:
+          requires:
+            - test-integration
+            - test-postman
+            - test-unit
+          filters:
+            branches:
+              only: master
