@@ -10,26 +10,26 @@ import javax.persistence.*
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true) // Jackson annotation to ignore unknown attributes when deserializing JSON.
 @Table(name = "quote")
-data class QuoteEntity(
+open class QuoteEntity(
         @get:Basic
         @get:Column(name = "appeared_at")
-        var appearedAt: Timestamp? = null,
+        open var appearedAt: Timestamp? = null,
 
         @get:JoinColumn(name = "author_id", referencedColumnName = "author_id")
         @get:ManyToOne(fetch = FetchType.EAGER)
-        var author: AuthorEntity? = null,
+        open var author: AuthorEntity? = null,
 
         @get:Basic
         @get:Column(name = "created_at")
-        var createdAt: Timestamp? = null,
+        open var createdAt: Timestamp? = null,
 
         @get:Column(name = "quote_id", nullable = false, insertable = false, updatable = false)
         @get:Id
-        var quoteId: String? = null,
+        open var quoteId: String? = null,
 
         @get:JoinColumn(name = "quote_source_id", referencedColumnName = "quote_source_id")
         @get:ManyToOne(fetch = FetchType.EAGER)
-        var source: QuoteSourceEntity? = null,
+        open var source: QuoteSourceEntity? = null,
 
         @get:JoinTable(
                 name = "quote_tag",
@@ -37,14 +37,14 @@ data class QuoteEntity(
                 inverseJoinColumns = [JoinColumn(name = "tag_id")]
         )
         @get:OneToMany(fetch = FetchType.EAGER)
-        var tags: List<TagEntity>? = emptyList(),
+        open var tags: List<TagEntity>? = emptyList(),
 
         @get:Basic
         @get:Column(name = "updated_at")
-        var updatedAt: Timestamp? = null,
+        open var updatedAt: Timestamp? = null,
 
         @get:Basic
         @get:Column(name = "value")
-        var value: String? = null
+        open var value: String? = null
 )
 

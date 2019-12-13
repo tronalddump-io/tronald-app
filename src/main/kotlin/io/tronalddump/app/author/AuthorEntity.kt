@@ -7,25 +7,25 @@ import javax.persistence.*
 open class AuthorEntity(
         @get:Id
         @get:Column(name = "author_id", nullable = false, insertable = false, updatable = false)
-        var authorId: String? = null,
+        open var authorId: String? = null,
 
         @get:Basic
         @get:Column(name = "bio")
-        var bio: String? = null,
+        open var bio: String? = null,
 
         @get:Basic
         @get:Column(name = "created_at")
-        var createdAt: java.sql.Timestamp? = null,
+        open var createdAt: java.sql.Timestamp? = null,
 
         @get:Basic
         @get:Column(name = "name")
-        var name: String? = null,
+        open var name: String? = null,
 
         @get:Basic
         @get:Column(name = "slug")
-        var slug: String? = null,
+        open var slug: String? = null,
 
         @get:Basic
         @get:Column(name = "updated_at")
-        var updatedAt: java.sql.Timestamp? = null
+        open var updatedAt: java.sql.Timestamp? = null
 )
