@@ -30,3 +30,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Spring ###
+src/main/resources/application-local.properties
