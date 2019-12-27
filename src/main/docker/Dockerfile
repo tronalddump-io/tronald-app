@@ -1,18 +1,11 @@
-FROM centos:centos7
+FROM matchilling/imagemagick7-centos
+
+MAINTAINER Mathias Schilling <m@matchilling.com>
 
 ENV JAVA_VERSION="1.8.0-openjdk"
 
-ENV IMAGEMAGICK_VERSION="7.0.9-8"
-ENV IMAGEMAGICK_LIB_RPM_URL="https://imagemagick.org/download/linux/CentOS/x86_64/ImageMagick-libs-${IMAGEMAGICK_VERSION}.x86_64.rpm"
-ENV IMAGEMAGICK_RPM_URL="https://imagemagick.org/download/linux/CentOS/x86_64/ImageMagick-${IMAGEMAGICK_VERSION}.x86_64.rpm"
-
-RUN curl -s -S $IMAGEMAGICK_LIB_RPM_URL -o imagemagick-lib.rpm && \
-    curl -s -S $IMAGEMAGICK_RPM_URL -o imagemagick.rpm
-
 RUN yum -y update && \
     yum -y install "java-${JAVA_VERSION}" && \
-    yum localinstall -y imagemagick*.rpm && \
-    rm -f imagemagick*.rpm && \
     yum clean all
 
 ARG JAR_FILE
