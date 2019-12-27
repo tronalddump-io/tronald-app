@@ -11,14 +11,13 @@ class TagModelAssembler : RepresentationModelAssemblerSupport<TagEntity, TagMode
     override fun instantiateModel(entity: TagEntity): TagModel {
         return TagModel(
                 entity.createdAt,
-                entity.tagId,
                 entity.updatedAt,
                 entity.value
         )
     }
 
     override fun toModel(entity: TagEntity): TagModel {
-        return this.createModelWithId(entity.tagId.toString(), entity)
+        return this.createModelWithId(entity.value.toString(), entity)
     }
 
     fun toPageModel(list: List<TagEntity>): PageModel {

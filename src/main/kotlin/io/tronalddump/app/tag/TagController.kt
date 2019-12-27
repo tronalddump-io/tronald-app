@@ -36,39 +36,31 @@ class TagController(
     @ResponseBody
     @RequestMapping(
             headers = [
+                "${HttpHeaders.ACCEPT}=$HAL_JSON_VALUE",
                 "${HttpHeaders.ACCEPT}=${MediaType.APPLICATION_JSON_VALUE}",
-                "${HttpHeaders.ACCEPT}=$HAL_JSON_VALUE"
-            ],
-            method = [RequestMethod.GET],
-            produces = [MediaType.APPLICATION_JSON_VALUE],
-            value = ["/{id}"]
-    )
-    fun findById(
-            @RequestHeader(HttpHeaders.ACCEPT) acceptHeader: String,
-            @PathVariable id: String
-    ): TagModel {
-        val entity = repository.findById(id).orElseThrow {
-            EntityNotFoundException("Tag with id \"$id\" not found.")
-        }
-
-        return assembler.toModel(entity)
-    }
-
-    @ResponseBody
-    @RequestMapping(
-            headers = [
                 "${HttpHeaders.ACCEPT}=${MediaType.TEXT_HTML_VALUE}"
             ],
             method = [RequestMethod.GET],
-            produces = [MediaType.TEXT_HTML_VALUE],
+            produces = [
+                HAL_JSON_VALUE,
+                MediaType.APPLICATION_JSON_VALUE,
+                MediaType.TEXT_HTML_VALUE
+            ],
             value = ["/{value}"]
     )
-    fun findByValue(@PathVariable value: String): ModelAndView {
+    fun findByValue(
+            @RequestHeader(HttpHeaders.ACCEPT) acceptHeader: String,
+            @PathVariable value: String
+    ): Any {
         val entity = repository.findByValue(value).orElseThrow {
             EntityNotFoundException("Tag with value \"$value\" not found.")
         }
 
-        return ModelAndView("tag")
-                .addObject("tag", entity)
+        if (acceptHeader.contains(MediaType.TEXT_HTML_VALUE)) {
+            return ModelAndView("tag")
+                    .addObject("tag", entity)
+        }
+
+        return assembler.toModel(entity)
     }
 }

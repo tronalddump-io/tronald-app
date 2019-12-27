@@ -14,32 +14,31 @@ class TagControllerSpec extends BaseSpecification {
     @Subject
     TagController controller
 
-    def 'should find "TagEntity" by id'() {
+    def 'should find "TagEntity" by value'() {
         given:
         def acceptHeader = MediaType.APPLICATION_JSON_VALUE
-        def id = 'N6ETSqCxTRKs0LNvU3m-0a'
+        def value = 'Hillary Clinton'
 
         when:
-        def response = controller.findById(acceptHeader, id)
+        def response = controller.findByValue(acceptHeader, value)
 
         then:
         response.createdAt != null
-        response.tagId == id
-        response.value == 'Hillary Clinton'
+        response.value == value
         response.updatedAt != null
     }
 
-    def 'should report an error if "QuoteEntity" does not exist'() {
+    def 'should report an error if "TagEntity" does not exist'() {
         given:
         def acceptHeader = MediaType.APPLICATION_JSON_VALUE
-        def id = 'does-not-exist'
+        def value = 'does-not-exist'
 
         when:
-        controller.findById(acceptHeader, id)
+        controller.findByValue(acceptHeader, value)
 
         then:
         def exception = thrown(EntityNotFoundException)
-        exception.message == 'Tag with id "does-not-exist" not found.'
+        exception.message == 'Tag with value "does-not-exist" not found.'
     }
 
     def 'should find "PageModel" for all tags'() {

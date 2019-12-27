@@ -6,6 +6,149 @@
 	},
 	"item": [
 		{
+			"name": "actuator",
+			"item": [
+				{
+					"name": "metrics",
+					"item": [
+						{
+							"name": "/actuator/metrics",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/actuator/metrics",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"actuator",
+										"metrics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/actuator/metrics/jvm.memory.used",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/actuator/metrics/jvm.memory.used",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"actuator",
+										"metrics",
+										"jvm.memory.used"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "17884ac0-bc90-4e73-b05c-aca85fdfbee8",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9b1eb0fc-0516-4ce0-a607-f89dd07e37fa",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "/actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actuator",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actuator/health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actuator/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actuator/info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actuator/info",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actuator",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actuator/prometheus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actuator/prometheus",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actuator",
+								"prometheus"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "quote",
 			"item": [
 				{
@@ -441,7 +584,7 @@
 					"response": []
 				},
 				{
-					"name": "random/meme",
+					"name": "/random/meme",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -955,9 +1098,6 @@
 									"            \"created_at\": {",
 									"                \"type\": \"string\"",
 									"            },",
-									"            \"tag_id\": {",
-									"                \"type\": \"string\"",
-									"            },",
 									"            \"updated_at\": {",
 									"                \"type\": \"string\"",
 									"            },",
@@ -986,7 +1126,6 @@
 									"        },",
 									"        \"required\": [",
 									"            \"created_at\",",
-									"            \"tag_id\",",
 									"            \"updated_at\",",
 									"            \"value\",",
 									"            \"_links\"",
@@ -1019,13 +1158,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/tag/N6ETSqCxTRKs0LNvU3m-0a",
+							"raw": "{{base_url}}/tag/Chris Christie",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"tag",
-								"N6ETSqCxTRKs0LNvU3m-0a"
+								"Chris Christie"
 							]
 						}
 					},
