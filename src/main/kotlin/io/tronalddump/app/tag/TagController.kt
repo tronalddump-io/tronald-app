@@ -1,7 +1,14 @@
 package io.tronalddump.app.tag
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.tags.Tag
 import io.tronalddump.app.Url
 import io.tronalddump.app.exception.EntityNotFoundException
+import io.tronalddump.app.quote.QuoteModel
 import io.tronalddump.app.search.PageModel
 import org.springframework.hateoas.MediaTypes.HAL_JSON_VALUE
 import org.springframework.http.HttpHeaders
@@ -11,11 +18,18 @@ import org.springframework.web.servlet.ModelAndView
 
 @RequestMapping(value = [Url.TAG])
 @RestController
+@Tag(name = "tag", description = "Service to retrieve and create tags")
 class TagController(
         private val assembler: TagModelAssembler,
         private val repository: TagRepository
 ) {
 
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", content = [
+            Content(schema = Schema(implementation = PageModel::class))
+        ])
+    ])
+    @Operation(summary = "Retrieve all tags", tags = ["tag"])
     @ResponseBody
     @RequestMapping(
             headers = [
@@ -33,6 +47,12 @@ class TagController(
         return assembler.toPageModel(result)
     }
 
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", content = [
+            Content(schema = Schema(implementation = TagModel::class))
+        ])
+    ])
+    @Operation(summary = "Find a tag by its value", tags = ["tag"])
     @ResponseBody
     @RequestMapping(
             headers = [

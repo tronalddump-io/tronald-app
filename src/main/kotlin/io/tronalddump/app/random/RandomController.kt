@@ -1,10 +1,17 @@
 package io.tronalddump.app.random
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.tronalddump.app.Url
 import io.tronalddump.app.meme.MemeGenerator
 import io.tronalddump.app.quote.QuoteModel
 import io.tronalddump.app.quote.QuoteModelAssembler
 import io.tronalddump.app.quote.QuoteRepository
+import io.tronalddump.app.quote_source.QuoteSourceModel
+import io.tronalddump.app.search.PageModel
 import org.springframework.hateoas.MediaTypes
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -21,6 +28,12 @@ class RandomController(
         private val repository: QuoteRepository
 ) {
 
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", content = [
+            Content(schema = Schema(implementation = ResponseEntity::class))
+        ])
+    ])
+    @Operation(summary = "Retrieve a random quote meme", tags = ["quote"])
     @ResponseBody
     @RequestMapping(
             headers = [
@@ -47,6 +60,12 @@ class RandomController(
         )
     }
 
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", content = [
+            Content(schema = Schema(implementation = QuoteModel::class))
+        ])
+    ])
+    @Operation(summary = "Retrieve a random quote", tags = ["quote"])
     @ResponseBody
     @RequestMapping(
             headers = [

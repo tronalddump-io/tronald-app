@@ -1,5 +1,6 @@
 package io.tronalddump.app.home
 
+import io.swagger.v3.oas.annotations.Operation
 import io.tronalddump.app.Url
 import io.tronalddump.app.tag.TagModelAssembler
 import io.tronalddump.app.tag.TagRepository
@@ -16,6 +17,7 @@ class HomeController(
         val tagRepository: TagRepository
 ) {
 
+    @Operation(hidden = true)
     @RequestMapping(
             headers = [HttpHeaders.ACCEPT + "=" + MediaType.TEXT_HTML_VALUE],
             method = [RequestMethod.GET],

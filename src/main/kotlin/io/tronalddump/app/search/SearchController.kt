@@ -1,5 +1,6 @@
 package io.tronalddump.app.search
 
+import io.swagger.v3.oas.annotations.Operation
 import io.tronalddump.app.Url
 import io.tronalddump.app.exception.EntityNotFoundException
 import io.tronalddump.app.quote.QuoteEntity
@@ -26,6 +27,7 @@ class SearchController(
         private val tagRepository: TagRepository
 ) {
 
+    @Operation(summary = "Search quotes by query or tags", tags = ["quote"])
     @ResponseBody
     @RequestMapping(
             headers = [

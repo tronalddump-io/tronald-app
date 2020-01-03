@@ -1,5 +1,6 @@
 package io.tronalddump.app.slack
 
+import io.swagger.v3.oas.annotations.Operation
 import io.tronalddump.app.Url
 import io.tronalddump.app.quote.QuoteEntity
 import io.tronalddump.app.quote.QuoteRepository
@@ -27,6 +28,7 @@ class SlackController(
     private val COMMAND: String = "tronald"
     private val PAGE_SIZE: Int = 5
 
+    @Operation(hidden = true)
     @RequestMapping(
             headers = ["${HttpHeaders.ACCEPT}=${MediaType.TEXT_HTML_VALUE}"],
             method = [RequestMethod.GET],
@@ -57,6 +59,7 @@ class SlackController(
                 .addObject("authorizeUri", slackService.authorizeUri())
     }
 
+    @Operation(hidden = true)
     @RequestMapping(
             headers = ["${HttpHeaders.ACCEPT}=${MediaType.APPLICATION_JSON_VALUE}"],
             method = [RequestMethod.POST],

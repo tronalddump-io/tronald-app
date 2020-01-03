@@ -1,5 +1,6 @@
 package io.tronalddump.app.privacy
 
+import io.swagger.v3.oas.annotations.Operation
 import io.tronalddump.app.Url
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView
 @Controller
 class PrivacyController {
 
+    @Operation(hidden = true)
     @RequestMapping(
             headers = [HttpHeaders.ACCEPT + "=" + MediaType.TEXT_HTML_VALUE],
             method = [RequestMethod.GET],
