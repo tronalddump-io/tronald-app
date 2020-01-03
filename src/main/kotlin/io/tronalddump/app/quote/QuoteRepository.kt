@@ -1,5 +1,6 @@
 package io.tronalddump.app.quote
 
+import io.tronalddump.app.tag.TagEntity
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
@@ -9,6 +10,8 @@ import java.util.*
 
 @Repository
 interface QuoteRepository : JpaRepository<QuoteEntity, String> {
+
+    fun findByTagsEquals(tag: TagEntity, pageable: Pageable): Page<QuoteEntity>
 
     fun findByValueContaining(query: String, pageable: Pageable): Page<QuoteEntity>
 
