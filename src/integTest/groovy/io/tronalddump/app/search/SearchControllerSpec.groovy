@@ -26,7 +26,7 @@ class SearchControllerSpec extends BaseSpecification {
         response.count == 10
         response.embedded != null
         response.links != null
-        response.total == 35
+        response.total == 36
 
         response.getLink("self").get().getHref() == 'http://localhost/search/quote?query=Hillary&page=0'
         response.getLink("first").get().getHref() == 'http://localhost/search/quote?query=Hillary&page=0'

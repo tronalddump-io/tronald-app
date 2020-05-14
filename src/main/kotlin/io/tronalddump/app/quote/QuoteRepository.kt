@@ -13,7 +13,7 @@ interface QuoteRepository : JpaRepository<QuoteEntity, String> {
 
     fun findByTagsEquals(tag: TagEntity, pageable: Pageable): Page<QuoteEntity>
 
-    fun findByValueContaining(query: String, pageable: Pageable): Page<QuoteEntity>
+    fun findByValueIgnoreCaseContaining(query: String, pageable: Pageable): Page<QuoteEntity>
 
     @Query(
             value = "SELECT q.* FROM quote q ORDER BY RANDOM() LIMIT 1",

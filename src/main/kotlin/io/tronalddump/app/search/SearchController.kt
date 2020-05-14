@@ -51,7 +51,7 @@ class SearchController(
         val page: Pageable = PageRequest.of(pageNumber, 10)
 
         if (query.isNotEmpty()) {
-            val result: Page<QuoteEntity> = quoteRepository.findByValueContaining(query, page)
+            val result: Page<QuoteEntity> = quoteRepository.findByValueIgnoreCaseContaining(query, page)
             val model: PageModel = assembler.toModel(result)
 
             val linkBuilder: WebMvcLinkBuilder = linkTo(this::class.java)

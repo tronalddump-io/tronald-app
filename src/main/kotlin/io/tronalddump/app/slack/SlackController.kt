@@ -90,7 +90,7 @@ class SlackController(
                     if (queryMatcher.find()) queryMatcher.group(0).trim()
                     else ""
 
-            val result: Page<QuoteEntity> = quoteRepository.findByValueContaining(query, PageRequest.of(pageNumber, PAGE_SIZE))
+            val result: Page<QuoteEntity> = quoteRepository.findByValueIgnoreCaseContaining(query, PageRequest.of(pageNumber, PAGE_SIZE))
             val cur: Pageable = result.pageable
 
             if (result.isEmpty) {

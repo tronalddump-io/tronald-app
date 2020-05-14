@@ -92,7 +92,7 @@ class SlackControllerSpec extends Specification {
         SlackCommandRequest request = new SlackCommandRequest(text: "? poop")
 
         when:
-        quoteRepository.findByValueContaining(*_) >> new PageImpl<QuoteEntity>([])
+        quoteRepository.findByValueIgnoreCaseContaining(*_) >> new PageImpl<QuoteEntity>([])
 
         then:
         def response = subject.command(request)
@@ -107,7 +107,7 @@ class SlackControllerSpec extends Specification {
         SlackCommandRequest request = new SlackCommandRequest(text: "? Hillary")
 
         when:
-        quoteRepository.findByValueContaining(*_) >> new PageImpl<QuoteEntity>(
+        quoteRepository.findByValueIgnoreCaseContaining(*_) >> new PageImpl<QuoteEntity>(
                 [
                         new QuoteEntity(quoteId: "dGV8JJVAQQ-ElmiYH1_h8g", value: "A random quote"),
                         new QuoteEntity(quoteId: "dGV8JJVAQQ-ElmiYH1_h8g", value: "A random quote"),
@@ -138,7 +138,7 @@ class SlackControllerSpec extends Specification {
         SlackCommandRequest request = new SlackCommandRequest(text: "? Hillary --page 2")
 
         when:
-        quoteRepository.findByValueContaining(*_) >> new PageImpl<QuoteEntity>([new QuoteEntity(quoteId: "dGV8JJVAQQ-ElmiYH1_h8g", value: "A random quote")], PageRequest.of(1, 5), 6L)
+        quoteRepository.findByValueIgnoreCaseContaining(*_) >> new PageImpl<QuoteEntity>([new QuoteEntity(quoteId: "dGV8JJVAQQ-ElmiYH1_h8g", value: "A random quote")], PageRequest.of(1, 5), 6L)
 
         then:
         def response = subject.command(request)
