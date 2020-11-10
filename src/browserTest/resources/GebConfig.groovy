@@ -7,3 +7,5 @@ baseUrl = env['BASE_URL']
 if (!baseUrl) {
     baseUrl = "http://localhost:8080"
 }
+
+driver = "chrome"

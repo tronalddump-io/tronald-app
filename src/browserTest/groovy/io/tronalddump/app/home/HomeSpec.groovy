@@ -20,6 +20,6 @@ class HomeSpec extends GebSpec {
         searchPage.title == 'Search for: Hillary'
 
         and: "you will see the total number of search results"
-        searchPage.total() == 35
+        searchPage.total() == 36
     }
 }
