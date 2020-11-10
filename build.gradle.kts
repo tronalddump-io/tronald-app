@@ -2,13 +2,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.energizedwork.webdriver-binaries") version "1.4"
-    id("com.palantir.docker") version "0.22.1"
-    id("io.spring.dependency-management") version "1.0.8.RELEASE"
+    id("com.palantir.docker") version "0.25.0"
+    id("io.spring.dependency-management") version "1.0.10.RELEASE"
     id("org.gradle.groovy")
-    id("org.springframework.boot") version "2.2.1.RELEASE"
+    id("org.springframework.boot") version "2.3.5.RELEASE"
 
-    kotlin("jvm") version "1.3.50"
-    kotlin("plugin.spring") version "1.3.50"
+    kotlin("jvm") version "1.4.20-RC"
+    kotlin("plugin.spring") version "1.4.20-RC"
 }
 
 val appName = "app"
@@ -50,13 +50,13 @@ dependencies {
     implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.postgresql:postgresql:42.2.8")
+    implementation("org.postgresql:postgresql:42.2.18")
     implementation("org.springdoc:springdoc-openapi-core:1.1.49")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.hateoas:spring-hateoas:1.0.1.RELEASE")
+    implementation("org.springframework.hateoas:spring-hateoas:1.2.0")
 
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
