@@ -33,3 +33,4 @@ out/
 
 ### Spring ###
 src/main/resources/application-local.properties
+src/main/resources/application-staging.properties

@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Application (staging)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="app.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.tronalddump.app.Application" />
+    <option name="ACTIVE_PROFILES" value="staging" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
