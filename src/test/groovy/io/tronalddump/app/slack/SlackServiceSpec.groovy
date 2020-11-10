@@ -23,7 +23,7 @@ class SlackServiceSpec extends Specification {
 
     def 'should return the authorize uri'() {
         expect:
-        slackService.authorizeUri().toUriString() == 'https://slack.com/oauth/authorize/?client_id=11111111111.222222222222&redirect_uri=http://localhost:8080/connect/slack&scope=commands'
+        slackService.authorizeUri().toUriString() == 'https://slack.com/oauth/v2/authorize/?client_id=11111111111.222222222222&redirect_uri=http://localhost:8080/connect/slack&scope=commands'
     }
 
     def 'should return an access token'() {

@@ -37,7 +37,7 @@ class SlackService(
                 .newInstance()
                 .scheme("https")
                 .host("slack.com")
-                .path("/oauth/authorize/")
+                .path("/oauth/v2/authorize/")
                 .queryParams(urlQueryParams)
                 .build()
                 .encode()
