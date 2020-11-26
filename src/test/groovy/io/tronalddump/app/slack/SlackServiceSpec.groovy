@@ -43,7 +43,7 @@ class SlackServiceSpec extends Specification {
         map.add("redirect_uri", redirectUrl)
 
         1 * restTemplate.exchange(
-                "https://slack.com/api/oauth.access",
+                "https://slack.com/api/oauth.v2.access",
                 HttpMethod.POST,
                 new HttpEntity(map, headers),
                 AccessToken.class

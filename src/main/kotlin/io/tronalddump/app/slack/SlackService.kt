@@ -55,7 +55,7 @@ class SlackService(
         map.add("redirect_uri", redirectUrl)
 
         val responseEntity: ResponseEntity<AccessToken> = restTemplate.exchange(
-                "https://slack.com/api/oauth.access",
+                "https://slack.com/api/oauth.v2.access",
                 HttpMethod.POST,
                 HttpEntity(map, headers),
                 AccessToken::class.java
